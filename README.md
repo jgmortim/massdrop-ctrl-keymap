@@ -11,19 +11,26 @@ keyboard like so:
 
 ![numpad.png](numpad.png)
 
+While the numpad layer is active, the numpad keys are backlit with cyan LEDs.
+
 ### Spanish Language Support
+
+The Spanish layer can be turned on and off by double tapping `LEFT ALT`. While the Spanish layer is active, the
+`LEFT ALT` key will be backlit with a cyan LED. The Spanish layer is automatically turned off after typing a 
+Spanish letter.
 
 #### Letters with Accents
 
-Spanish letters with accents can be typed by holding down `CAPS LOCK` and pressing the corresponding letter.
-For example, pressing `a` will produce `á`, `e` will produce `é`, `n` will produce `ñ` and so on.
-To get capital letters, hold both `CAPS LOCK` and `LEFT SHIFT` at the same time.
+While the Spanish layer is active, type the corresponding letter. For example, pressing `a` will produce `á`,
+`e` will produce `é`, `n` will produce `ñ` and so on. To get capital letters, hold `SHIFT` at the same time as
+pressing the corresponding letter.
 
 #### Inverted Punctuation Marks
-For `¡` and `¿`, use `CAPS LOCK`+`LEFT SHIFT`+`1` and `CAPS LOCK`+`LEFT SHIFT`+`/`, respectively.
+
+For `¡` and `¿`,  use `SHIFT`+`1` and `SHIFT`+`/`, respectively.
 
 Note that `SHIFT`+`1` is `!` and `SHIFT`+`/` is `?`, so effectively, you could also think of these as
-`CAPS LOCK`+`!` and `CAPS LOCK`+`?`, respectively.
+just pressing `!` and `?`, while the Spanish layer is active.
 
 ## Compiling
 
