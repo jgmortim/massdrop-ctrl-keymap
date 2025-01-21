@@ -45,8 +45,8 @@ Notes:
   `git clone https://github.com/qmk/qmk_firmware`.
 * I had to run `pacman -S $MINGW_PACKAGE_PREFIX-python-pip` before I could run `make git-submodule`.
 
-Next copy the `keymap.c` file from this repo and place it into the `qmk_firmware/keyboards/massdrop/ctrl/jgmortim`
-directory of the repo you cloned.
+Next copy all the files from the `qmk_firmware/keyboards/massdrop/ctrl/jgmortim` directory in this repo and place
+them into the `qmk_firmware/keyboards/massdrop/ctrl/jgmortim` directory of the repo you cloned.
 
 You can then use MSYS2 to compile this keymap using `qmk compile -kb massdrop/ctrl -km jgmortim`.
 
@@ -67,4 +67,9 @@ Use the command `mdloader --first --download massdrop_ctrl_jgmortim.bin --restar
   * [Flashing Your Keyboard](https://docs.qmk.fm/newbs_flashing)
 
 ## Contact
+
 jgmortim
+
+## Credits
+
+LED config code was mostly transferred from [matthewrobo keymap](https://github.com/qmk/qmk_firmware/tree/master/keyboards/massdrop/ctrl/keymaps/matthewrobo).
