@@ -24,20 +24,14 @@ enum ctrl_keycodes {
 
 enum custom_keycodes {
     // The start of this enum should always be equal to end of ctrl_keycodes + 1
-    A_AC_LOW = MD_BOOT + 1, // Lowercase a with acute accent
-    A_AC_CAP,               // Uppercase A with acute accent
-    E_AC_LOW,               // Lowercase e with acute accent
-    E_AC_CAP,               // Uppercase E with acute accent
-    I_AC_LOW,               // Lowercase i with acute accent
-    I_AC_CAP,               // Uppercase I with acute accent
-    O_AC_LOW,               // Lowercase o with acute accent
-    O_AC_CAP,               // Uppercase O with acute accent
-    U_AC_LOW,               // Lowercase u with acute accent
-    U_AC_CAP,               // Uppercase U with acute accent
-    ENE_LOW,                // Lowercase n with tilde accent
-    ENE_CAP,                // Uppercase N with tilde accent
-    INV_EXC,                // Inverted exclamation point
-    INV_QUS                 // Inverted question mark
+    A_ACUTE = MD_BOOT + 1, // A with acute accent
+    E_ACUTE,               // E with acute accent
+    I_ACUTE,               // I with acute accent
+    O_ACUTE,               // O with acute accent
+    U_ACUTE,               // U with acute accent
+    ENE,                   // N with tilde accent
+    INV_EXC,               // Inverted exclamation point
+    INV_QUS                // Inverted question mark
 };
 
 // Associate our tap dance key with its functionality
@@ -71,20 +65,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                   _______,                            _______, _______, _______, _______,            _______, _______, _______
     ),
     [3] = LAYOUT(
-        _______,       _______,  _______, _______,  _______, _______, _______, _______,  _______,  _______,  _______, _______, _______,            _______, _______, _______,
-        _______,       _______,  _______, _______,  _______, _______, _______, _______,  _______,  _______,  _______, _______, _______, _______,   _______, _______, _______,
-        _______,       _______,  _______, E_AC_LOW, _______, _______, _______, U_AC_LOW, I_AC_LOW, O_AC_LOW, _______, _______, _______, _______,   _______, _______, _______,
-        _______,       A_AC_LOW, _______, _______,  _______, _______, _______, _______,  _______,  _______,  _______, _______, _______,
-        LT(4,KC_TRNS), _______,  _______, _______,  _______, _______, ENE_LOW, _______,  _______,  _______,  _______, _______,                              _______,
-        _______,       _______,  _______,                    _______,                              _______,  _______, _______, _______,            _______, _______, _______
-    ),
-    [4] = LAYOUT(
-        _______,       _______,  _______, _______,  _______, _______, _______, _______,  _______,  _______,  _______, _______, _______,            _______, _______, _______,
-        _______,       INV_EXC,  _______, _______,  _______, _______, _______, _______,  _______,  _______,  _______, _______, _______, _______,   _______, _______, _______,
-        _______,       _______,  _______, E_AC_CAP, _______, _______, _______, U_AC_CAP, I_AC_CAP, O_AC_CAP, _______, _______, _______, _______,   _______, _______, _______,
-        _______,       A_AC_CAP, _______, _______,  _______, _______, _______, _______,  _______,  _______,  _______, _______, _______,
-        _______,       _______,  _______, _______,  _______, _______, ENE_CAP, _______,  _______,  _______,  INV_QUS, _______,                              _______,
-        _______,       _______,  _______,                    _______,                              _______,  _______, _______, _______,            _______, _______, _______
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
+        _______, INV_EXC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, E_ACUTE, _______, _______, _______, U_ACUTE, I_ACUTE, O_ACUTE, _______, _______, _______, _______, _______, _______, _______,
+        _______, A_ACUTE, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, ENE,     _______, _______, _______, INV_QUS, _______,                            _______,
+        _______, _______, _______,                   _______,                            _______, _______, _______, _______,          _______, _______, _______
     )
 };
 
@@ -135,19 +121,6 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         DIM_RED, DIM_WHITE, DIM_RED,
         DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED,
         DIM_RED, DIM_WHITE, DIM_RED
-    },
-    [4] = {
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,        BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,                      BLACK,
-        BLACK, BLACK, CYAN,                BLACK,                      BLACK, BLACK, BLACK, BLACK,        BLACK, BLACK, BLACK,
-        // Boarder; starts bottom right and moves clockwise
-        DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED,
-        DIM_RED, DIM_WHITE, DIM_RED,
-        DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED,
-        DIM_RED, DIM_WHITE, DIM_RED
     }
 };
 
@@ -165,79 +138,96 @@ void keyboard_post_init_user(void) {
 #define MODS_CTRL   (get_mods() & MOD_MASK_CTRL)
 #define MODS_ALT    (get_mods() & MOD_MASK_ALT)
 
+void send_string_without_mods(const char *string) {
+    uint8_t mod_state = get_mods();
+    unregister_mods(mod_state);
+    SEND_STRING(string);
+    register_mods(mod_state);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
 
     switch (keycode) {
-        case A_AC_LOW: // Lowercase a with acute accent: ALT + 0225
+        case A_ACUTE:
             if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_5)));
+                if (MODS_SHIFT) { // Uppercase A with acute accent: ALT + 0193
+                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_3)));
+                } else {          // Lowercase a with acute accent: ALT + 0225
+                    SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_5)));
+                }
             }
+            layer_off(3);
             return false;
-        case A_AC_CAP: // Uppercase A with acute accent: ALT + 0193
+        case E_ACUTE:
             if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_3)));
+                if (MODS_SHIFT) { // Uppercase E with acute accent: ALT + 0201
+                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_1)));
+                } else {          // Lowercase e with acute accent: ALT + 0233
+                    SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_3) SS_TAP(X_KP_3)));
+                }
             }
+            layer_off(3);
             return false;
-        case E_AC_LOW: // Lowercase e with acute accent: ALT + 0233
+        case I_ACUTE:
             if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_3) SS_TAP(X_KP_3)));
+                if (MODS_SHIFT) { // Uppercase I with acute accent: ALT + 0205
+                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_5)));
+                } else {          // Lowercase i with acute accent: ALT + 0237
+                    SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_3) SS_TAP(X_KP_7)));
+                }
             }
+            layer_off(3);
             return false;
-        case E_AC_CAP: // Uppercase E with acute accent: ALT + 0201
+        case O_ACUTE:
             if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_1)));
+                if (MODS_SHIFT) { // Uppercase O with acute accent: ALT + 0211
+                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_1)));
+                } else {          // Lowercase o with acute accent: ALT + 0243
+                    SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_3)));
+                }
             }
+            layer_off(3);
             return false;
-        case I_AC_LOW: // Lowercase i with acute accent: ALT + 0237
+        case U_ACUTE:
             if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_3) SS_TAP(X_KP_7)));
+                if (MODS_SHIFT) { // Uppercase U with acute accent: ALT + 0218
+                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_8)));
+                } else {          // Lowercase u with acute accent: ALT + 0250
+                    SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_0)));
+                }
             }
+            layer_off(3);
             return false;
-        case I_AC_CAP: // Uppercase I with acute accent: ALT + 0205
+        case ENE:
             if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_5)));
+                if (MODS_SHIFT) { // Uppercase N with tilde accent: ALT + 0209
+                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_9)));
+                } else {          // Lowercase n with tilde accent: ALT + 0241
+                    SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_1)));
+                }
             }
+            layer_off(3);
             return false;
-        case O_AC_LOW: // Lowercase o with acute accent: ALT + 0243
+        case INV_EXC:
             if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_3)));
+                if (MODS_SHIFT) { // Inverted exclamation point: ALT + 161
+                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_1)));
+                } else {
+                    SEND_STRING("1");
+                }
             }
-            return false;
-        case O_AC_CAP: // Uppercase O with acute accent: ALT + 0211
-            if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_1)));
-            }
-            return false;
-        case U_AC_LOW: // Lowercase u with acute accent: ALT + 0250
-            if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_0)));
-            }
-            return false;
-        case U_AC_CAP: // Uppercase U with acute accent: ALT + 0218
-            if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_8)));
-            }
-            return false;
-        case ENE_LOW: // Lowercase n with tilde accent: ALT + 0241
-            if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_1)));
-            }
-            return false;
-        case ENE_CAP: // Uppercase N with tilde accent: ALT + 0209
-            if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_9)));
-            }
-            return false;
-        case INV_EXC: // Inverted exclamation point: ALT + 161
-            if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_1)));
-            }
+            layer_off(3);
             return false;
         case INV_QUS: // Inverted question mark: ALT + 191
             if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1)));
+                if (MODS_SHIFT) {
+                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1)));
+                } else {
+                    SEND_STRING("/");
+                }
             }
+            layer_off(3);
             return false;
         // DEFAULTS BELOW
         case U_T_AUTO:

@@ -9,12 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Cyan indicator LED on left ALT to indicate that Spanish layers are active
+- Cyan indicator LED on left ALT to indicate that the Spanish layer is active
 
 ### Changed
 
-- Spanish layers are no longer toggled by holding `CAPS LOCK`. Instead, Spanish layers are turned on and off by
+- Spanish layers merged into a single layer
+- Spanish layer is no longer toggled by holding `CAPS LOCK`. Instead, the Spanish layer is turned on and off by
   double tapping left ALT.
+- The Spanish layer is automatically turned off after typing a Spanish letter
 - README to reflect changes
 
 ## [1.3.0] - 2025-01-20
