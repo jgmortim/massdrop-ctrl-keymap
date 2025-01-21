@@ -13,17 +13,21 @@ keyboard like so:
 
 ### Spanish Language Support
 
+The Spanish layers can be turned on and off by double tapping `LEFT ALT`. While the Spanish layers are active, the
+`LEFT ALT` key will be back lit with a cyan LED.
+
 #### Letters with Accents
 
-Spanish letters with accents can be typed by holding down `CAPS LOCK` and pressing the corresponding letter.
-For example, pressing `a` will produce `á`, `e` will produce `é`, `n` will produce `ñ` and so on.
-To get capital letters, hold both `CAPS LOCK` and `LEFT SHIFT` at the same time.
+While the Spanish layers are active, type the corresponding letter. For example, pressing `a` will produce `á`,
+`e` will produce `é`, `n` will produce `ñ` and so on. To get capital letters, hold `LEFT SHIFT` at the same time as
+pressing the corresponding letter.
 
 #### Inverted Punctuation Marks
-For `¡` and `¿`, use `CAPS LOCK`+`LEFT SHIFT`+`1` and `CAPS LOCK`+`LEFT SHIFT`+`/`, respectively.
+
+For `¡` and `¿`,  use `LEFT SHIFT`+`1` and `LEFT SHIFT`+`/`, respectively.
 
 Note that `SHIFT`+`1` is `!` and `SHIFT`+`/` is `?`, so effectively, you could also think of these as
-`CAPS LOCK`+`!` and `CAPS LOCK`+`?`, respectively.
+just pressing `!` and `?`, respectively, while the Spanish layer is active.
 
 ## Compiling
 
