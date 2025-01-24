@@ -1,15 +1,22 @@
 #include QMK_KEYBOARD_H
 
-#define BLACK {HSV_BLACK}
 #define CYAN {HSV_CYAN}
 #define DIM_RED {0, 255, 100}
 #define DIM_WHITE {0, 0, 100}
+#define ______ {HSV_BLACK} // 5 underscores instead of the 6 used by the KC_TRNS alias.
 
 extern rgb_config_t rgb_matrix_config;
-bool rgb_enabled_flag;                  // Current LED state flag. If false then LED is off.
+bool rgb_enabled_flag; // Current LED state flag. If false then LED is off.
 
 enum tapdance_keycodes {
-    TD_ALT_ES = 0 // Tap dance key to switch to Spanish layer
+    TD_ALT_SL = 0 // Tap dance key to switch to Spanish layer
+};
+
+enum layout_names {
+    _KL=0,       // Keys Layout: The main keyboard layout that has all the characters
+    _FL,         // Function Layout: The function key activated layout with default functions
+    _NL,         // Numpad Layout: Adds a numpad
+    _SL          // Spanish Layout: Spanish accented letter macros
 };
 
 enum ctrl_keycodes {
@@ -34,37 +41,37 @@ enum custom_keycodes {
     INV_QUS                // Inverted question mark
 };
 
-// Associate our tap dance key with its functionality
+/* Associate tap dance key with its functionality */
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_ALT_ES] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LALT, 3)
+    [TD_ALT_SL] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LALT, 3)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
-        KC_ESC,       KC_F1,   KC_F2,         KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,             KC_PSCR, KC_SCRL, KC_PAUS,
-        LT(2,KC_GRV), KC_1,    KC_2,          KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,   KC_INS,  KC_HOME, KC_PGUP,
-        KC_TAB,       KC_Q,    KC_W,          KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,   KC_DEL,  KC_END,  KC_PGDN,
-        KC_CAPS,      KC_A,    KC_S,          KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
-        KC_LSFT,      KC_Z,    KC_X,          KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                              KC_UP,
-        KC_LCTL,      KC_LGUI, TD(TD_ALT_ES),                   KC_SPC,                             KC_RALT, MO(1),   KC_APP,  KC_RCTL,            KC_LEFT, KC_DOWN, KC_RGHT
+    [_KL] = LAYOUT(
+        KC_ESC,       KC_F1,   KC_F2,         KC_F3, KC_F4, KC_F5,  KC_F6, KC_F7, KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_PSCR, KC_SCRL, KC_PAUS,
+        LT(2,KC_GRV), KC_1,    KC_2,          KC_3,  KC_4,  KC_5,   KC_6,  KC_7,  KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_INS,  KC_HOME, KC_PGUP,
+        KC_TAB,       KC_Q,    KC_W,          KC_E,  KC_R,  KC_T,   KC_Y,  KC_U,  KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,  KC_END,  KC_PGDN,
+        KC_CAPS,      KC_A,    KC_S,          KC_D,  KC_F,  KC_G,   KC_H,  KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+        KC_LSFT,      KC_Z,    KC_X,          KC_C,  KC_V,  KC_B,   KC_N,  KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                            KC_UP,
+        KC_LCTL,      KC_LGUI, TD(TD_ALT_SL),               KC_SPC,                        KC_RALT, MO(1),   KC_APP,  KC_RCTL,          KC_LEFT, KC_DOWN, KC_RGHT
     ),
-    [1] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            KC_MUTE, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   KC_MPLY, KC_MSTP, KC_VOLU,
-        _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO,U_T_AGCR,_______, _______, _______, _______, _______,   KC_MPRV, KC_MNXT, KC_VOLD,
-        _______, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______, _______,
-        _______, RGB_TOG, _______, _______, _______, MD_BOOT, NK_TOGG, _______, _______, _______, _______, _______,                              _______,
-        _______, _______, _______,                   _______,                            _______, _______, _______, _______,            _______, _______, _______
+    [_FL] = LAYOUT(
+        _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_MUTE, _______, _______,
+        _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, KC_MSTP, KC_VOLU,
+        _______, RGB_SPD,  RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO,U_T_AGCR,_______, _______, _______, _______, _______, KC_MPRV, KC_MNXT, KC_VOLD,
+        _______, RGB_RMOD, RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______, _______,
+        _______, RGB_TOG,  _______, _______, _______, MD_BOOT, NK_TOGG, _______, _______, _______, _______, _______,                            _______,
+        _______, _______,  _______,                   _______,                            _______, _______, _______, _______,          _______, _______, _______
     ),
-    [2] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            KC_KP_7, KC_KP_8, KC_KP_9,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   KC_KP_4, KC_KP_5, KC_KP_6,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_0,   KC_KP_1, KC_KP_2, KC_KP_3,
+    [_NL] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_KP_7, KC_KP_8, KC_KP_9,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_4, KC_KP_5, KC_KP_6,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                              _______,
-        _______, _______, _______,                   _______,                            _______, _______, _______, _______,            _______, _______, _______
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                            _______,
+        _______, _______, _______,                   _______,                            _______, _______, _______, _______,          _______, _______, _______
     ),
-    [3] = LAYOUT(
+    [_SL] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, INV_EXC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, E_ACUTE, _______, _______, _______, U_ACUTE, I_ACUTE, O_ACUTE, _______, _______, _______, _______, _______, _______, _______,
@@ -75,61 +82,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
-    [0] = {
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,        BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,                      BLACK,
-        BLACK, BLACK, BLACK,               BLACK,                      BLACK, BLACK, BLACK, BLACK,        BLACK, BLACK, BLACK,
-        // Boarder; starts bottom right and moves clockwise
-        DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED,
+    [_KL] = {
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         ______, ______, ______,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,                         ______,
+        ______, ______, ______,                 ______,                         ______, ______, ______, ______,         ______, ______, ______,
+        /* Boarder; starts bottom right and moves clockwise */
+        DIM_RED, DIM_RED,   DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED,
         DIM_RED, DIM_WHITE, DIM_RED,
-        DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED,
+        DIM_RED, DIM_RED,   DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED,
         DIM_RED, DIM_WHITE, DIM_RED
     },
-    [1] = {
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,        BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,                      BLACK,
-        BLACK, BLACK, BLACK,               BLACK,                      BLACK, BLACK, BLACK, BLACK,        BLACK, BLACK, BLACK
+    [_FL] = {
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         ______, ______, ______,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,                         ______,
+        ______, ______, ______,                 ______,                         ______, ______, ______, ______,         ______, ______, ______
     },
-    [2] = {
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,        CYAN,  CYAN,  CYAN,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, CYAN,  CYAN,  CYAN,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, CYAN,  CYAN,  CYAN,  CYAN,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, CYAN,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,                      BLACK,
-        BLACK, BLACK, BLACK,               BLACK,                      BLACK, BLACK, BLACK, BLACK,        BLACK, BLACK, BLACK,
-        // Boarder; starts bottom right and moves clockwise
-        CYAN, CYAN, CYAN, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED,
-        DIM_RED, DIM_WHITE, DIM_RED,
-        DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, CYAN, CYAN, CYAN,
-        CYAN, CYAN, CYAN
+    [_NL] = {
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         CYAN,    CYAN,   CYAN,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, CYAN,    CYAN,   CYAN,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, CYAN,   CYAN,    CYAN,   CYAN,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, CYAN,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,                          ______,
+        ______, ______, ______,                 ______,                         ______, ______, ______, ______,          ______, ______, ______,
+        /* Boarder; starts bottom right and moves clockwise */
+        CYAN,   CYAN,   CYAN,   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, CYAN,   CYAN,   CYAN,
+        CYAN,   CYAN,   CYAN
     },
-    [3] = {
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,        BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,
-        BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK,                      BLACK,
-        BLACK, BLACK, CYAN,                BLACK,                      BLACK, BLACK, BLACK, BLACK,        BLACK, BLACK, BLACK,
-        // Boarder; starts bottom right and moves clockwise
-        DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED,
-        DIM_RED, DIM_WHITE, DIM_RED,
-        DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED,
-        DIM_RED, DIM_WHITE, DIM_RED
+    [_SL] = {
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         ______, ______, ______,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,                         ______,
+        ______, ______, CYAN,                   ______,                         ______, ______, ______, ______,         ______, ______, ______
     }
 };
 
-// Runs just one time when the keyboard initializes.
+/* Runs just one time when the keyboard initializes. */
 void matrix_init_user(void) {
     rgb_enabled_flag = true; // Initially, keyboard RGB is enabled. Change to false config.h initializes RGB disabled.
 };
 
-// Runs just one time after everything else has initialized.
+/* Runs just one time after everything else has initialized. */
 void keyboard_post_init_user(void) {
     rgb_matrix_enable();
 }
@@ -139,10 +141,10 @@ void keyboard_post_init_user(void) {
 #define MODS_ALT    (get_mods() & MOD_MASK_ALT)
 
 void send_string_without_mods(const char *string) {
-    uint8_t mod_state = get_mods();
-    unregister_mods(mod_state);
-    SEND_STRING(string);
-    register_mods(mod_state);
+    uint8_t mod_state = get_mods(); // Gets the current mods
+    unregister_mods(mod_state);     // Turns all active mods off
+    SEND_STRING(string);            // Sends the string
+    register_mods(mod_state);       // And restores the mods to their original state
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -219,9 +221,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             layer_off(3);
             return false;
-        case INV_QUS: // Inverted question mark: ALT + 191
+        case INV_QUS:
             if (record->event.pressed) {
-                if (MODS_SHIFT) {
+                if (MODS_SHIFT) { // Inverted question mark: ALT + 191
                     send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1)));
                 } else {
                     SEND_STRING("/");
@@ -311,10 +313,33 @@ void set_layer_color(int layer) {
             RGB rgb = hsv_to_rgb(hsv);
             float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
             rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
-        } else if (layer != 1) {
-            // Only deactivate non-defined key LEDs at layers other than FN. Because at FN we have RGB adjustments and need to see them live.
-            // If the values are all false then it's a transparent key and deactivate LED at this layer
-            rgb_matrix_set_color(i, 0, 0, 0);
+        } else if (layer != _FL) {
+            // Only read lower layer LEDs at layers other than FN. Because at FN we have RGB adjustments and need to see them live.
+            bool is_undefined = false;
+            // Attempt to get HSV values from a lower active layer, working down from the current layer.
+            for (int lower_layer_j = layer - 1; lower_layer_j >= 0; lower_layer_j--) {
+                // IS_LAYER_ON(_KL) returns false for some reason, might have something to do with it being the default
+                // layer. For my purposes, _KL is always active so I added "|| lower_layer_j == _KL".
+                if (IS_LAYER_ON(lower_layer_j) || lower_layer_j == _KL) {
+                    HSV lower_hsv = {
+                        .h = pgm_read_byte(&ledmap[lower_layer_j][i][0]),
+                        .s = pgm_read_byte(&ledmap[lower_layer_j][i][1]),
+                        .v = pgm_read_byte(&ledmap[lower_layer_j][i][2]),
+                    };
+                    if (lower_hsv.h || lower_hsv.s || lower_hsv.v) {
+                        RGB rgb = hsv_to_rgb(lower_hsv);
+                        float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+                        rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
+                        is_undefined = false;
+                        break;
+                    }
+                }
+            }
+
+            if (is_undefined) {
+                // If the values are all false then it's a transparent key and deactivate LED at this layer
+                rgb_matrix_set_color(i, 0, 0, 0);
+            }
         }
     }
 }
