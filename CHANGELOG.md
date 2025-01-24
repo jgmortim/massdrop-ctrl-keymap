@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.0] - 2025-01-24
 
+### Added
+
+- LED layer transparency. If an LED is off/transparent at a given layer `n`, it will be set to the value of the first
+  active layer checking from `n-1` to `0`. For example, if `LED[6]` is off on `layer[3]`, but its red on `layer[2]`, 
+  then if both layers `2` and `3` are active, `LED[6]` will be red.
+
 ### Changed
 
 - Give layers aliases and other minor organizational improvements
