@@ -2,7 +2,7 @@
 
 This repo is for keeping track of the changes I make to the firmware running on my Massdrop CTRL keyboard.
 
-## Keyboard Features
+## Layers
 
 ### Numpad
 
@@ -31,6 +31,12 @@ For `¡` and `¿`,  use `SHIFT`+`1` and `SHIFT`+`/`, respectively.
 
 Note that `SHIFT`+`1` is `!` and `SHIFT`+`/` is `?`, so effectively, you could also think of these as
 just pressing `!` and `?`, while the Spanish layer is active.
+
+## Other Features
+
+### LED Timeout
+
+After 5 minutes of inactivity, the LEDs will turn off. Pressing any key will turn them back on. 
 
 ## Compiling
 
@@ -73,10 +79,7 @@ Use the command `mdloader --first --download massdrop_ctrl_jgmortim.bin --restar
   * [Building Your First Firmware](https://docs.qmk.fm/newbs_building_firmware)
   * [Flashing Your Keyboard](https://docs.qmk.fm/newbs_flashing)
 
-## Contact
-
-jgmortim
-
 ## Credits
 
-LED config code was mostly transferred from [matthewrobo keymap](https://github.com/qmk/qmk_firmware/tree/master/keyboards/massdrop/ctrl/keymaps/matthewrobo).
+* LED config code was mostly transferred from [matthewrobo keymap](https://github.com/Massdrop/qmk_firmware/tree/master/keyboards/massdrop/ctrl/keymaps/matthewrobo).
+* RGB timeout code is based on the implementation in [endgame keymap](https://github.com/Massdrop/qmk_firmware/tree/feature/riot_xap/keyboards/massdrop/ctrl/keymaps/endgame)
