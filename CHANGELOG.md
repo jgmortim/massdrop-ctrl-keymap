@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.0.0] - 2025-01-26
 
+### Added
+
+- Backlight to FN layer keys while the FN layer is active.
+
 ### Changed
 
 - Removed unused RGB controls from FN layer as this keymap uses its own hard-coded LED configuration.
