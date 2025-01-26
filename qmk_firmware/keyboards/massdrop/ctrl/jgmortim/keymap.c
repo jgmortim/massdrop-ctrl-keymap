@@ -3,8 +3,9 @@
 #define MILLISECONDS_IN_SECOND 1000
 
 #define CYAN {HSV_CYAN}
+#define DIM_GOLD {28, 255, 100}
 #define DIM_RED {0, 255, 100}
-#define DIM_WHITE {0, 0, 100}
+#define GOLD {28, 255, 255}
 #define ______ {HSV_BLACK} // 5 underscores instead of the 6 used by the KC_TRNS alias.
 
 #define RGB_TIME_OUT 300  // 300 seconds (5 minutes).
@@ -51,7 +52,7 @@ enum custom_keycodes {
 };
 
 static uint16_t idle_timer;             // Idle LED timeout timer
-static uint8_t idle_second_counter;     // Idle LED seconds counter, counts seconds not milliseconds
+static uint16_t idle_second_counter;    // Idle LED seconds counter, counts seconds not milliseconds
 static uint8_t key_event_counter;       // This counter is used to check if any keys are being held
 
 /* Associate tap dance key with its functionality */
@@ -103,10 +104,10 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,                         ______,
         ______, ______, ______,                 ______,                         ______, ______, ______, ______,         ______, ______, ______,
         /* Boarder; starts bottom right and moves clockwise */
-        DIM_RED, DIM_RED,   DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED,
-        DIM_RED, DIM_WHITE, DIM_RED,
-        DIM_RED, DIM_RED,   DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED, DIM_RED, DIM_WHITE, DIM_RED, DIM_RED,
-        DIM_RED, DIM_WHITE, DIM_RED
+        DIM_GOLD, DIM_RED, DIM_GOLD, DIM_RED, DIM_GOLD, DIM_RED, DIM_GOLD, DIM_RED, DIM_GOLD, DIM_RED, DIM_GOLD, DIM_RED, DIM_GOLD,
+        DIM_RED, DIM_GOLD, DIM_RED,
+        DIM_GOLD, DIM_RED, DIM_GOLD, DIM_RED, DIM_GOLD, DIM_RED, DIM_GOLD, DIM_RED, DIM_GOLD, DIM_RED, DIM_GOLD, DIM_RED, DIM_GOLD,
+        DIM_RED, DIM_GOLD, DIM_RED
     },
     [_FL] = {
         ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         ______, ______, ______,
@@ -117,17 +118,12 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         ______, ______, ______,                 ______,                         ______, ______, ______, ______,         ______, ______, ______
     },
     [_NL] = {
-        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         CYAN,    CYAN,   CYAN,
-        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, CYAN,    CYAN,   CYAN,
-        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, CYAN,   CYAN,    CYAN,   CYAN,
-        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, CYAN,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         GOLD,    GOLD,   GOLD,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, GOLD,    GOLD,   GOLD,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, GOLD,   GOLD,    GOLD,   GOLD,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, GOLD,
         ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,                          ______,
-        ______, ______, ______,                 ______,                         ______, ______, ______, ______,          ______, ______, ______,
-        /* Boarder; starts bottom right and moves clockwise */
-        CYAN,   CYAN,   CYAN,   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
-        ______, ______, ______,
-        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, CYAN,   CYAN,   CYAN,
-        CYAN,   CYAN,   CYAN
+        ______, ______, ______,                 ______,                         ______, ______, ______, ______,          ______, ______, ______
     },
     [_SL] = {
         ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         ______, ______, ______,
