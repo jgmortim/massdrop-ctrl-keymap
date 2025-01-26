@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.3.0] - 2025-01-25
 
+### Changed
+
+- RGB layout
+
 ### Fixed
 
 - Bug in RGB timeout function which prevented the timer from counting above 255 seconds.

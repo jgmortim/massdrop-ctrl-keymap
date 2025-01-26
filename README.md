@@ -11,7 +11,7 @@ keyboard like so:
 
 ![numpad.png](numpad.png)
 
-While the numpad layer is active, the numpad keys are backlit with cyan LEDs.
+While the numpad layer is active, the numpad keys are backlit with gold LEDs.`
 
 ### Spanish Language Support
 
