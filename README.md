@@ -38,6 +38,18 @@ just pressing `!` and `?`, while the Spanish layer is active.
 
 After 5 minutes of inactivity, the LEDs will turn off. Pressing any key will turn them back on. 
 
+### Custom Shortcuts
+
+| Shortcut | Function      | Macro                          |
+|----------|---------------|--------------------------------|
+| Win + c  | Calculator    | Win + r, "calc", ENTER         |
+| Win + s  | Snipping Tool | Win + r, "SnippingTool", ENTER |
+
+#### Notes
+* Calculator replaces Cortana. I have Cortana disable so a calculator shortcut is much more useful.
+* Snipping Tool replaces search. Pressing the `Win` key followed by typing anything will open search already, 
+ so using `Win` + `s` to open search has always seemed like a waste of a shortcut.
+
 ## Compiling
 
 This firmware cannot be compiled with the official [qmk_firmware](https://github.com/qmk/qmk_firmware), but instead 

@@ -9,11 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Shortcuts for Windows Calculator and Snipping Tool. 
+  - Pressing `Win` + `c` will now open the calculator instead of Cortana. The specific macro that runs is: `Win` + `r`
+    to open the `run` dialog, typing in the string "calc" and then pressing `ENTER`.
+  - Pressing `Win` + `s` will now open Snipping Tool instead of search. The specific macro that runs is: `Win` + `r` 
+    to open the `run` dialog, typing in the string "SnippingTool" and then pressing `ENTER`.
 - Backlight to FN layer keys while the FN layer is active.
 
 ### Changed
 
 - Removed unused RGB controls from FN layer as this keymap uses its own hard-coded LED configuration.
+- README to reflect changes
 
 ## [2.3.0] - 2025-01-25
 

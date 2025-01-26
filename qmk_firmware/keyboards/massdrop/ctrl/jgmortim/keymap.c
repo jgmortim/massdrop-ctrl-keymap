@@ -204,6 +204,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
+        /* Change Win + c to be Calculator instead of Cortana */
+        case KC_C:
+            if (record->event.pressed && get_mods() == MOD_BIT(KC_LGUI)) {
+                // Win + r, "CALC", enter
+                SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_R) SS_UP(X_LGUI) "CALC" SS_TAP(X_ENT));
+                return false;
+            }
+            return true;
+        /* Change Win + s to be Snipping Tool instead of search */
+        case KC_S:
+            if (record->event.pressed && get_mods() == MOD_BIT(KC_LGUI)) {
+                // Win + r, "CALC", enter
+                SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_R) SS_UP(X_LGUI) "SnippingTool" SS_TAP(X_ENT));
+                return false;
+            }
+            return true;
         /* Spanish Letters and Punctuation */
         case A_ACUTE:
             if (record->event.pressed) {
