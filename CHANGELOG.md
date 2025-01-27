@@ -9,17 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Shortcuts for Windows Calculator and Snipping Tool. 
+- Shortcuts for Windows Calculator and Snipping Tool
   - Pressing `Win` + `c` will now open the calculator instead of Cortana. The specific macro that runs is: `Win` + `r`
     to open the `run` dialog, typing in the string "calc" and then pressing `ENTER`.
   - Pressing `Win` + `s` will now open Snipping Tool instead of search. The specific macro that runs is: `Win` + `r` 
     to open the `run` dialog, typing in the string "SnippingTool" and then pressing `ENTER`.
-- Backlight to FN layer keys while the FN layer is active.
+- Backlight to FN layer keys while the FN layer is active
+- Additional details to the README
 
 ### Changed
 
-- Removed unused RGB controls from FN layer as this keymap uses its own hard-coded LED configuration.
-- README to reflect changes
+- Removed unused RGB controls from FN layer as this keymap uses its own hard-coded LED configuration
 
 ## [2.3.0] - 2025-01-25
 
@@ -29,13 +29,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Bug in RGB timeout function which prevented the timer from counting above 255 seconds.
+- Bug in RGB timeout function which prevented the timer from counting above 255 seconds
 
 ## [2.2.0] - 2025-01-24
 
 ### Added
 
-- RGB timeout after 5 minutes.
+- RGB timeout after 5 minutes
 
 ### Fixed
 
@@ -45,7 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Bug in LED layer transparency that caused LEDs that are off on all active layers to match the LED options of FN layer.
+- Bug in LED layer transparency that caused LEDs that are off on all active layers to match the LED options of FN layer
 
 ## [2.1.0] - 2025-01-24
 
