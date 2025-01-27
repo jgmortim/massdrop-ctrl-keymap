@@ -1,6 +1,7 @@
 # massdrop-ctrl-keymap
 
-This repo is for keeping track of the changes I make to the firmware running on my Massdrop CTRL keyboard.
+This repo is for keeping track of the changes I make to the firmware running on my Massdrop CTRL keyboard as well as
+all other aspects of the keyboard.
 
 An approximate rendering of my keyboard is below:
 
@@ -9,6 +10,13 @@ An approximate rendering of my keyboard is below:
 
 ![keyboard render](resources/images/keyboard.png)
 </details>
+
+## Hardware
+
+* Case/Plate/PCB: [Drop CTRL V1 High-Profile](https://drop.com/buy/drop-ctrl-high-profile-mechanical-keyboard) - black
+* Switches: [Halo Clear](https://drop.com/buy/drop-halo-switch-pack?defaultSelectionIds=986078)
+* Keycaps: [KeyGeak Rome PBT - SA profile](https://keygeak.com/products/rome-pbt-ansi-iso-keycaps-set-sa-profile)
+* Foam: [StupidFish Designs](https://stupidfish.design/products/drop-ctrl-high-profile-case-and-plate-foam-set)
 
 ## Layers
 
