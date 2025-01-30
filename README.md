@@ -141,6 +141,13 @@ Use the command `mdloader --first --download massdrop_ctrl_jgmortim.bin --restar
   * [Building Your First Firmware](https://docs.qmk.fm/newbs_building_firmware)
   * [Flashing Your Keyboard](https://docs.qmk.fm/newbs_flashing)
 
+## Troubleshooting
+
+### LEDs not turning on
+If the LED are not turning on or if they turn off after being on for a second, it most likely means your keyboard is
+not getting enough power. This is especially common if you're using a USB hub as they can struggle to deliver enough
+power to all connected devices.
+
 ## Credits
 
 * LED config code was mostly transferred from [matthewrobo keymap](https://github.com/Massdrop/qmk_firmware/tree/master/keyboards/massdrop/ctrl/keymaps/matthewrobo).
