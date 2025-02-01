@@ -48,7 +48,7 @@ on the upper right of the keyboard like so:
 ![numpad layout](resources/images/numpad.png)
 </details>
 
-While the numpad layer is active, the numpad keys are backlit with gold LEDs. All other keys are transparent.
+While the numpad layer is active, the numpad keys are backlit with copper LEDs. All other keys are transparent.
 
 ### L3 \ Spanish
 

@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- LED layout to copper themed
 - README images to have the new bronze case 
 
 ## [3.0.1] - 2025-01-26
