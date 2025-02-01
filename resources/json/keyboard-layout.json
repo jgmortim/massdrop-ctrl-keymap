@@ -1,6 +1,6 @@
 [
   {
-    "backcolor": "#3b3b3b",
+    "backcolor": "#644d41",
     "name": "Drop CTRL",
     "author": "jgmortim",
     "radii": "15px",
@@ -213,8 +213,6 @@
       "x": 1.25,
       "c": "#871016",
       "t": "#e5dbca",
-      "sm": "",
-      "sb": "",
       "f": 7
     },
     "⮝"
