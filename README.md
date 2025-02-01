@@ -13,8 +13,12 @@ An approximate rendering of my keyboard is below:
 
 ## Hardware
 
-* Case/Plate/PCB: [Drop CTRL V1 High-Profile](https://drop.com/buy/drop-ctrl-high-profile-mechanical-keyboard) - black
+[Drop CTRL V1 High-Profile](https://drop.com/buy/drop-ctrl-high-profile-mechanical-keyboard) TKL Mechanical Keyboard
+* Case: [Bronze Replacement Case](https://drop.com/buy/drop-ctrl-high-profile-aluminum-case?defaultSelectionIds=966025)
+* PCB: Stock CTRL V1
+* LED Diffuser: Stock [CTRL LED Diffuser](https://drop.com/buy/drop-mechanical-keyboard-led-diffusers?defaultSelectionIds=989038)
 * Switches: [Halo Clear](https://drop.com/buy/drop-halo-switch-pack?defaultSelectionIds=986078)
+* Stabilizers: Stock Plate-mounted Cherry-style
 * Keycaps: [KeyGeak Rome PBT - SA profile](https://keygeak.com/products/rome-pbt-ansi-iso-keycaps-set-sa-profile)
 * Foam: [StupidFish Designs](https://stupidfish.design/products/drop-ctrl-high-profile-case-and-plate-foam-set)
 
@@ -48,7 +52,7 @@ on the upper right of the keyboard like so:
 ![numpad layout](resources/images/numpad.png)
 </details>
 
-While the numpad layer is active, the numpad keys are backlit with gold LEDs. All other keys are transparent.
+While the numpad layer is active, the numpad keys are backlit with copper LEDs. All other keys are transparent.
 
 ### L3 \ Spanish
 
@@ -140,6 +144,13 @@ Use the command `mdloader --first --download massdrop_ctrl_jgmortim.bin --restar
   * [Setting Up Your QMK Environment](https://docs.qmk.fm/newbs_getting_started)
   * [Building Your First Firmware](https://docs.qmk.fm/newbs_building_firmware)
   * [Flashing Your Keyboard](https://docs.qmk.fm/newbs_flashing)
+
+## Troubleshooting
+
+### LEDs not turning on
+If the LED are not turning on or if they turn off after being on for a second, it most likely means your keyboard is
+not getting enough power. This is especially common if you're using a USB hub as they can struggle to deliver enough
+power to all connected devices.
 
 ## Credits
 
