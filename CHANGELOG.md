@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.x.x] - 2025-??-??
+## [3.1.0] - 2025-02-01
 
 ### Added
 
@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - LED layout to copper themed
 - README images to have the new bronze case 
+- Updated hardware listing in README
 
 ## [3.0.1] - 2025-01-26
 
@@ -131,6 +132,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - This CHANGELOG file
 - gitignore
 
+[3.1.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v3.0.1...v3.1.0
 [3.0.1]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v2.3.0...v3.0.0
 [2.3.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v2.2.0...v2.3.0

@@ -13,8 +13,12 @@ An approximate rendering of my keyboard is below:
 
 ## Hardware
 
-* Case/Plate/PCB: [Drop CTRL V1 High-Profile](https://drop.com/buy/drop-ctrl-high-profile-mechanical-keyboard) - black
+[Drop CTRL V1 High-Profile](https://drop.com/buy/drop-ctrl-high-profile-mechanical-keyboard) TKL Mechanical Keyboard
+* Case: [Bronze Replacement Case](https://drop.com/buy/drop-ctrl-high-profile-aluminum-case?defaultSelectionIds=966025)
+* PCB: Stock CTRL V1
+* LED Diffuser: Stock [CTRL LED Diffuser](https://drop.com/buy/drop-mechanical-keyboard-led-diffusers?defaultSelectionIds=989038)
 * Switches: [Halo Clear](https://drop.com/buy/drop-halo-switch-pack?defaultSelectionIds=986078)
+* Stabilizers: Stock Plate-mounted Cherry-style
 * Keycaps: [KeyGeak Rome PBT - SA profile](https://keygeak.com/products/rome-pbt-ansi-iso-keycaps-set-sa-profile)
 * Foam: [StupidFish Designs](https://stupidfish.design/products/drop-ctrl-high-profile-case-and-plate-foam-set)
 
