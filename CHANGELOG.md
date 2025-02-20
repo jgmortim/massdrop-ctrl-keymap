@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Numpad layer is now activated via tap dance
 
+### Fixed
+
+- Speed issue with custom Win+r shortcuts (#13)
+
 ## [3.1.0] - 2025-02-01
 
 ### Added
@@ -138,6 +142,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - This CHANGELOG file
 - gitignore
 
+[4.0.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v3.1.0...v4.0.0
 [3.1.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v3.0.1...v3.1.0
 [3.0.1]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v2.3.0...v3.0.0
