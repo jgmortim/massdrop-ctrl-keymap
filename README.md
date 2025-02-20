@@ -43,8 +43,8 @@ default keymap:
 
 ### L2 \ Numpad
 
-A numpad layer is activated by holding down the grave mark (tilde) key while on any other layer. The numpad is located 
-on the upper right of the keyboard like so:
+A numpad layer can be turned on and off by double tapping the grave mark (tilde) key while on any other layer. 
+The numpad is located on the upper right of the keyboard like so:
 
 <details>
 <summary>Click to expand image</summary>
