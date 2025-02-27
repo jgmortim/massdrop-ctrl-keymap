@@ -129,9 +129,21 @@ them into the `qmk_firmware/keyboards/massdrop/ctrl/jgmortim` directory of the r
 
 You can then use MSYS2 MINGW64 to compile this keymap using `qmk compile -kb massdrop/ctrl -km jgmortim`.
 
-### Other OS
+### Linux
 
-I'm currently only using Windows 10, so if you try to use this on Linux or Mac, you'll be figuring that out on your own.
+Tested using Ubuntu.
+
+As with Windows, I relied on the instructions for
+"[Building a keyboard firmware](https://matt3o.com/building-a-keyboard-firmware/)" on Matt3o.com.
+
+Notes:
+* The git clone will be `git clone -b feature/riot_xap https://github.com/Massdrop/qmk_firmware` instead of
+  `git clone https://github.com/qmk/qmk_firmware`.
+
+Next copy all the files from the `qmk_firmware/keyboards/massdrop/ctrl/jgmortim` directory in this repo and place
+them into the `qmk_firmware/keyboards/massdrop/ctrl/jgmortim` directory of the repo you cloned.
+
+You can then compile this keymap using `make massdrop/ctrl:jgmortim`.
 
 ## Flashing
 
