@@ -43,8 +43,8 @@ default keymap:
 
 ### L2 \ Numpad
 
-A numpad layer can be turned on and off by double tapping the grave mark (tilde) key while on any other layer. 
-The numpad is located on the upper right of the keyboard like so:
+A numpad layer can be turned on and off by double tapping the grave mark (tilde) key (which is using the `NUM LOCK` 
+key cap on my keyboard) while on any other layer. The numpad is located on the upper right of the keyboard like so:
 
 <details>
 <summary>Click to expand image</summary>
@@ -86,7 +86,7 @@ just pressing `!` and `?`, while the Spanish layer is active.
 
 After 5 minutes of inactivity, the LEDs will turn off. Pressing any key will turn them back on. 
 
-### Custom Shortcuts
+### Custom Shortcuts (Windows only)
 
 | Shortcut | Function      | Macro                          |
 |----------|---------------|--------------------------------|
@@ -111,6 +111,8 @@ needs to be compiled using [Massdrop's fork](https://github.com/Massdrop/qmk_fir
 Specifically, using the [feature/riot_xap](https://github.com/Massdrop/qmk_firmware/tree/feature/riot_xap) branch.
 
 ### Windows
+
+Tested using Windows 10.
 
 I wasn't able to compile this using [QMK MSYS](https://msys.qmk.fm/). When I tried, I got an error stating that
 Massdrop's fork of qmk_firmware "exists but is not a qmk_firmware clone!"
@@ -160,7 +162,7 @@ Use the command `mdloader --first --download massdrop_ctrl_jgmortim.bin --restar
 ## Troubleshooting
 
 ### LEDs not turning on
-If the LED are not turning on or if they turn off after being on for a second, it most likely means your keyboard is
+If the LEDs are not turning on or if they turn off after being on for a second, it most likely means your keyboard is
 not getting enough power. This is especially common if you're using a USB hub as they can struggle to deliver enough
 power to all connected devices.
 

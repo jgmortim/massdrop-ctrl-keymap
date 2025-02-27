@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Linux compiling instructions to README
+- OS mode toggle on `FN` + `Win`
+
+### Changed
+
+- Custom Windows shortcuts disabled in Linux mode
 
 ## [4.0.1] - 2025-02-27
 

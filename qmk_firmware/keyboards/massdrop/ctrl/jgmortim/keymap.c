@@ -34,6 +34,7 @@ bool rgb_time_out_enable;               // Idle LED toggle enable. If false then
 bool rgb_time_out_user_value;           // This holds the toggle value set by user with ROUT_TG. It's necessary as RGB_TOG changes timeout enable.
 uint16_t rgb_time_out_seconds;          // Idle LED timeout value, in seconds not milliseconds
 led_flags_t rgb_time_out_saved_flag;    // Store LED flag before timeout so it can be restored when LED is turned on again.
+uint8_t os_mode;
 
 enum tapdance_keycodes {
     TD_ALT_SL = 0, // Tap dance key to switch to Spanish layer
@@ -66,7 +67,13 @@ enum custom_keycodes {
     U_ACUTE,               // U with acute accent
     ENE,                   // N with tilde accent
     INV_EXC,               // Inverted exclamation point
-    INV_QUS                // Inverted question mark
+    INV_QUS,               // Inverted question mark
+    OS_TOG
+};
+
+enum os {
+    WINDOWS = 0,
+    LINUX
 };
 
 static uint16_t idle_timer;             // Idle LED timeout timer
@@ -94,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,  _______, _______, _______, _______, _______, U_T_AUTO,U_T_AGCR,_______, _______, _______, _______, _______, KC_MPRV, KC_MNXT, KC_VOLD,
         _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______,  _______, _______, _______, MD_BOOT, NK_TOGG, _______, _______, _______, _______, _______,                            _______,
-        _______, _______,  _______,                   _______,                            _______, _______, _______, _______,          _______, _______, _______
+        _______, OS_TOG,   _______,                   _______,                            _______, _______, _______, _______,          _______, _______, _______
     ),
     [_NL] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_KP_7, KC_KP_8, KC_KP_9,
@@ -162,6 +169,7 @@ void matrix_init_user(void) {
     rgb_time_out_enable = true;                         // Enable RGB timeout by default.
     rgb_enabled_flag = true;                            // Initially, keyboard RGB is enabled.
     rgb_time_out_saved_flag = rgb_matrix_get_flags();   // Save RGB matrix state for when keyboard comes back from ide.
+    os_mode = WINDOWS;
 };
 
 /* Runs just one time after everything else has initialized. */
@@ -248,9 +256,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
+        /* Toggle OS mode between Windows and Linux */
+        case OS_TOG:
+            if (record->event.pressed) {
+                // Win + r, "CALC", enter
+                if (os_mode == WINDOWS) {
+                    os_mode = LINUX;
+                    SEND_STRING(SS_DELAY(500)"linux");
+                } else {
+                    os_mode = WINDOWS;
+                    SEND_STRING(SS_DELAY(500)"windows");
+                }
+                return false;
+            }
+            return true;
         /* Change Win + c to be Calculator instead of Cortana */
         case KC_C:
-            if (record->event.pressed && get_mods() == MOD_BIT(KC_LGUI)) {
+            if (record->event.pressed && get_mods() == MOD_BIT(KC_LGUI) && os_mode == WINDOWS) {
                 // Win + r, "CALC", enter
                 SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_R) SS_UP(X_LGUI) SS_DELAY(50) "CALC" SS_TAP(X_ENT));
                 return false;
@@ -258,7 +280,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
         /* Change Win + s to be Snipping Tool instead of search */
         case KC_S:
-            if (record->event.pressed && get_mods() == MOD_BIT(KC_LGUI)) {
+            if (record->event.pressed && get_mods() == MOD_BIT(KC_LGUI) && os_mode == WINDOWS) {
                 // Win + r, "CALC", enter
                 SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_R) SS_UP(X_LGUI) SS_DELAY(50) "SnippingTool" SS_TAP(X_ENT));
                 return false;
