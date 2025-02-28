@@ -75,7 +75,7 @@ static uint8_t key_event_counter;       // This counter is used to check if any 
 
 /* Associate tap dance keys with their functionality */
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_ALT_SL] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LALT, 3),
+    [TD_ALT_SL] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LALT, _SL),
     [TD_GRV_NL] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_GRV, _NL)
 };
 
@@ -190,16 +190,41 @@ void matrix_scan_user(void) {
     }
 };
 
+/* Executes the given alt code. */
+void send_alt_code(char code[]) {
+    uint8_t mod_state = get_mods(); // Gets the current mods
+    unregister_mods(mod_state);     // Turns all active mods off
+
+    SEND_STRING(SS_DOWN(X_LALT));
+    for(int i = 0; code[i] != '\0';  i++) {
+        switch(code[i]) {
+            case '1': SEND_STRING(SS_TAP(X_KP_1)); break;
+            case '2': SEND_STRING(SS_TAP(X_KP_2)); break;
+            case '3': SEND_STRING(SS_TAP(X_KP_3)); break;
+            case '4': SEND_STRING(SS_TAP(X_KP_4)); break;
+            case '5': SEND_STRING(SS_TAP(X_KP_5)); break;
+            case '6': SEND_STRING(SS_TAP(X_KP_6)); break;
+            case '7': SEND_STRING(SS_TAP(X_KP_7)); break;
+            case '8': SEND_STRING(SS_TAP(X_KP_8)); break;
+            case '9': SEND_STRING(SS_TAP(X_KP_9)); break;
+            default:  SEND_STRING(SS_TAP(X_KP_0)); break;
+        }
+    }
+    SEND_STRING(SS_UP(X_LALT));
+
+    register_mods(mod_state); // Restores the mods to their original state
+}
+
+/* Enters the given command into the Windows Run dialog. */
+void windows_run(const char *command) {
+    SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_R) SS_UP(X_LGUI) SS_DELAY(50)); // Open the run dialog,
+    SEND_STRING(command);                                                // type in the command,
+    SEND_STRING(SS_TAP(X_ENT));                                          // and press enter.
+}
+
 #define MODS_SHIFT  (get_mods() & MOD_MASK_SHIFT)
 #define MODS_CTRL   (get_mods() & MOD_MASK_CTRL)
 #define MODS_ALT    (get_mods() & MOD_MASK_ALT)
-
-void send_string_without_mods(const char *string) {
-    uint8_t mod_state = get_mods(); // Gets the current mods
-    unregister_mods(mod_state);     // Turns all active mods off
-    SEND_STRING(string);            // Sends the string
-    register_mods(mod_state);       // And restores the mods to their original state
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
@@ -242,81 +267,65 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         /* Spanish Letters and Punctuation */
         case A_ACUTE:
             if (record->event.pressed) {
-                if (MODS_SHIFT) { // Uppercase A with acute accent: ALT + 0193
-                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_3)));
-                } else {          // Lowercase a with acute accent: ALT + 0225
-                    SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_5)));
-                }
+                MODS_SHIFT
+                    ? send_alt_code("0193")  // Uppercase A with acute accent: ALT + 0193
+                    : send_alt_code("0225"); // Lowercase a with acute accent: ALT + 0225
             }
             layer_off(3);
             return false;
         case E_ACUTE:
             if (record->event.pressed) {
-                if (MODS_SHIFT) { // Uppercase E with acute accent: ALT + 0201
-                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_1)));
-                } else {          // Lowercase e with acute accent: ALT + 0233
-                    SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_3) SS_TAP(X_KP_3)));
-                }
+                MODS_SHIFT
+                    ? send_alt_code("0201")  // Uppercase E with acute accent: ALT + 0201
+                    : send_alt_code("0233"); // Lowercase e with acute accent: ALT + 0233
             }
             layer_off(3);
             return false;
         case I_ACUTE:
             if (record->event.pressed) {
-                if (MODS_SHIFT) { // Uppercase I with acute accent: ALT + 0205
-                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_5)));
-                } else {          // Lowercase i with acute accent: ALT + 0237
-                    SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_3) SS_TAP(X_KP_7)));
-                }
+                MODS_SHIFT
+                    ? send_alt_code("0205")  // Uppercase I with acute accent: ALT + 0205
+                    : send_alt_code("0237"); // Lowercase i with acute accent: ALT + 0237
             }
             layer_off(3);
             return false;
         case O_ACUTE:
             if (record->event.pressed) {
-                if (MODS_SHIFT) { // Uppercase O with acute accent: ALT + 0211
-                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_1)));
-                } else {          // Lowercase o with acute accent: ALT + 0243
-                    SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_3)));
-                }
+                MODS_SHIFT
+                    ? send_alt_code("0211")  // Uppercase O with acute accent: ALT + 0211
+                    : send_alt_code("0243"); // Lowercase o with acute accent: ALT + 0243
             }
             layer_off(3);
             return false;
         case U_ACUTE:
             if (record->event.pressed) {
-                if (MODS_SHIFT) { // Uppercase U with acute accent: ALT + 0218
-                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_8)));
-                } else {          // Lowercase u with acute accent: ALT + 0250
-                    SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_0)));
-                }
+                MODS_SHIFT
+                    ? send_alt_code("0218")  // Uppercase U with acute accent: ALT + 0218
+                    : send_alt_code("0250"); // Lowercase u with acute accent: ALT + 0250
             }
             layer_off(3);
             return false;
         case ENE:
             if (record->event.pressed) {
-                if (MODS_SHIFT) { // Uppercase N with tilde accent: ALT + 0209
-                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_9)));
-                } else {          // Lowercase n with tilde accent: ALT + 0241
-                    SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_1)));
-                }
+                MODS_SHIFT
+                    ? send_alt_code("0209")  // Uppercase N with tilde accent: ALT + 0209
+                    : send_alt_code("0241"); // Lowercase n with tilde accent: ALT + 0241
             }
             layer_off(3);
             return false;
         case INV_EXC:
             if (record->event.pressed) {
-                if (MODS_SHIFT) { // Inverted exclamation point: ALT + 161
-                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_1)));
-                } else {
-                    SEND_STRING("1");
-                }
+                MODS_SHIFT
+                    ? send_alt_code("0161")  // Inverted exclamation point: ALT + 0161
+                    : SEND_STRING("1");
             }
             layer_off(3);
             return false;
         case INV_QUS:
             if (record->event.pressed) {
-                if (MODS_SHIFT) { // Inverted question mark: ALT + 191
-                    send_string_without_mods(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1)));
-                } else {
-                    SEND_STRING("/");
-                }
+                MODS_SHIFT
+                    ? send_alt_code("0191")  // Inverted question mark: ALT + 0191
+                    : SEND_STRING("/");
             }
             layer_off(3);
             return false;
