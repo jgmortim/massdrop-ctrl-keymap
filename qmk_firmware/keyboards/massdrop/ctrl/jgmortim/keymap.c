@@ -190,10 +190,7 @@ void matrix_scan_user(void) {
     }
 };
 
-#define MODS_SHIFT  (get_mods() & MOD_MASK_SHIFT)
-#define MODS_CTRL   (get_mods() & MOD_MASK_CTRL)
-#define MODS_ALT    (get_mods() & MOD_MASK_ALT)
-
+/* Executes the given alt code. */
 void send_alt_code(char code[]) {
     uint8_t mod_state = get_mods(); // Gets the current mods
     unregister_mods(mod_state);     // Turns all active mods off
@@ -215,8 +212,19 @@ void send_alt_code(char code[]) {
     }
     SEND_STRING(SS_UP(X_LALT));
 
-    register_mods(mod_state);       // And restores the mods to their original state
+    register_mods(mod_state); // Restores the mods to their original state
 }
+
+/* Enters the given command into the Windows Run dialog. */
+void windows_run(const char *command) {
+    SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_R) SS_UP(X_LGUI) SS_DELAY(50)); // Open the run dialog,
+    SEND_STRING(command);                                                // type in the command,
+    SEND_STRING(SS_TAP(X_ENT));                                          // and press enter.
+}
+
+#define MODS_SHIFT  (get_mods() & MOD_MASK_SHIFT)
+#define MODS_CTRL   (get_mods() & MOD_MASK_CTRL)
+#define MODS_ALT    (get_mods() & MOD_MASK_ALT)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
