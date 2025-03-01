@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Linux compiling instructions to README
 - OS mode toggle on `FN` + `Win`
+- OS indicator led to `Win` key
 - Full Spanish layer support in Linux mode via the Unicode-entry mode (`Ctrl` + `Shift` + `u`)
 
 ### Changed

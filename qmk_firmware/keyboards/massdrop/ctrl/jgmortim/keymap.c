@@ -23,9 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define COPPER {12, 255, 100}
 #define CPPR_BRT {12, 255, 225}
 #define CYAN {HSV_CYAN}
-#define ______ {HSV_BLACK} // 5 underscores instead of the 6 used by the KC_TRNS alias.
+#define WIN_IND {HSV_BLUE}  // Windows mode indicator LED color.
+#define LNX_IND {HSV_GREEN} // Linux mode indicator LED color.
+#define ______ {HSV_OFF}    // 5 underscores instead of the 6 used by the KC_TRNS alias.
 
-#define RGB_TIME_OUT 300  // 300 seconds (5 minutes).
+#define RGB_TIME_OUT 300       // 300 seconds (5 minutes).
+#define OS_MODE_IND_LED 77     // Index of the OS mode indicator LED (77 is Win key).
+#define OS_MODE_IND_TIME_OUT 3 // 3 second timeout for the OS mode indicator LED.
 
 extern rgb_config_t rgb_matrix_config;
 
@@ -34,7 +38,8 @@ bool rgb_time_out_enable;               // Idle LED toggle enable. If false then
 bool rgb_time_out_user_value;           // This holds the toggle value set by user with ROUT_TG. It's necessary as RGB_TOG changes timeout enable.
 uint16_t rgb_time_out_seconds;          // Idle LED timeout value, in seconds not milliseconds
 led_flags_t rgb_time_out_saved_flag;    // Store LED flag before timeout so it can be restored when LED is turned on again.
-uint8_t os_mode;
+uint8_t os_mode;                        // Stores the current OS mode.
+bool os_mode_led_flag;                  // Current OS indicator LED state flag. If false, then the LED is off.
 
 enum tapdance_keycodes {
     TD_ALT_SL = 0, // Tap dance key to switch to Spanish layer
@@ -79,6 +84,9 @@ enum os {
 static uint16_t idle_timer;             // Idle LED timeout timer
 static uint16_t idle_second_counter;    // Idle LED seconds counter, counts seconds not milliseconds
 static uint8_t key_event_counter;       // This counter is used to check if any keys are being held
+
+static uint16_t os_ind_led_timer;          // OS toggle LED timeout timer
+static uint16_t os_ind_led_second_counter; // OS toggle LED seconds counter, counts seconds not milliseconds
 
 /* Associate tap dance keys with their functionality */
 tap_dance_action_t tap_dance_actions[] = {
@@ -136,12 +144,12 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         COPPER, COPPER, COPPER
     },
     [_FL] = {
-        ______, ______,   ______, ______, ______, ______,   ______,   ______,   ______,   ______, ______, ______, ______,         ______, ______, ______,
-        ______, ______,   ______, ______, ______, ______,   ______,   ______,   ______,   ______, ______, ______, ______, ______, ______, ______, ______,
-        ______, ______,   ______, ______, ______, ______,   ______,   CPPR_BRT, CPPR_BRT, ______, ______, ______, ______, ______, ______, ______, ______,
-        ______, ______,   ______, ______, ______, ______,   ______,   ______,   ______,   ______, ______, ______, ______,
-        ______, ______,   ______, ______, ______, CPPR_BRT, CPPR_BRT, ______,   ______,   ______, ______, ______,                         ______,
-        ______, CPPR_BRT, ______,                 ______,                                 ______, ______, ______, ______,         ______, ______, ______
+        ______, ______, ______, ______, ______, ______,   ______,   ______,   ______,   ______, ______, ______, ______,         ______, ______, ______,
+        ______, ______, ______, ______, ______, ______,   ______,   ______,   ______,   ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, ______,   ______,   CPPR_BRT, CPPR_BRT, ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, ______,   ______,   ______,   ______,   ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, CPPR_BRT, CPPR_BRT, ______,   ______,   ______, ______, ______,                         ______,
+        ______, ______, ______,                 ______,                                 ______, ______, ______, ______,         ______, ______, ______
     },
     [_NL] = {
         ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,             CPPR_BRT, CPPR_BRT, CPPR_BRT,
@@ -170,6 +178,7 @@ void matrix_init_user(void) {
     rgb_enabled_flag = true;                            // Initially, keyboard RGB is enabled.
     rgb_time_out_saved_flag = rgb_matrix_get_flags();   // Save RGB matrix state for when keyboard comes back from ide.
     os_mode = WINDOWS;                                  // Default to Windows mode.
+    os_mode_led_flag = false;                           // Default OS indicator LED to off.
 };
 
 /* Runs just one time after everything else has initialized. */
@@ -194,6 +203,18 @@ void matrix_scan_user(void) {
             rgb_matrix_disable_noeeprom();
             rgb_enabled_flag = false;
             idle_second_counter = 0;
+        }
+    }
+
+    if(os_mode_led_flag) {
+        if (timer_elapsed(os_ind_led_timer) > MILLISECONDS_IN_SECOND) {
+            os_ind_led_second_counter++;
+            os_ind_led_timer = timer_read();
+        }
+
+        if (os_ind_led_second_counter >= OS_MODE_IND_TIME_OUT) {
+            os_mode_led_flag = false;
+            os_ind_led_second_counter = 0;
         }
     }
 };
@@ -271,13 +292,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         /* Toggle OS mode between Windows and Linux */
         case OS_TOG:
             if (record->event.pressed) {
-                if (os_mode == WINDOWS) {
-                    os_mode = LINUX;
-//                    SEND_STRING(SS_DELAY(500)"linux");
-                } else {
-                    os_mode = WINDOWS;
-//                    SEND_STRING(SS_DELAY(500)"windows");
-                }
+                os_mode ^= (WINDOWS | LINUX);
+                os_mode_led_flag = true;
+                os_ind_led_second_counter = 0;
                 return false;
             }
             return true;
@@ -449,6 +466,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 void set_layer_color(int layer) {
     for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+        /* Special Indicator Logic */
+        if (i == OS_MODE_IND_LED && (os_mode_led_flag || layer == _FL)) {
+            HSV win_hsv = WIN_IND;
+            HSV lnx_hsv = LNX_IND;
+
+            RGB rgb = hsv_to_rgb(os_mode == WINDOWS ? win_hsv : lnx_hsv);
+            float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+            rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
+            continue;
+        }
+        /* Normal Logic */
         HSV hsv = {
             .h = pgm_read_byte(&ledmap[layer][i][0]),
             .s = pgm_read_byte(&ledmap[layer][i][1]),

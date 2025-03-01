@@ -22,6 +22,15 @@ An approximate rendering of my keyboard is below:
 * Keycaps: [KeyGeak Rome PBT - SA profile](https://keygeak.com/products/rome-pbt-ansi-iso-keycaps-set-sa-profile)
 * Foam: [StupidFish Designs](https://stupidfish.design/products/drop-ctrl-high-profile-case-and-plate-foam-set)
 
+## OS Modes
+
+The keyboard contains both a Windows mode and a Linux mode. The default mode is Windows. To ensure that all keyboard 
+functions work property, make sure the keyboard is in the correct mode for the current OS. 
+
+To toggle modes, press `FN` + `Win`. While holding down the `FN` key (i.e., the Function layer is active), the `win` 
+key will be backlit blue if Windows mode is active and green if linux mode is active. After switching modes, the `win` 
+key will remain backlight for 3 seconds on all layers (in addition to always being backlit on the Function layer).
+
 ## Layers
 
 ### L0 \ Base
