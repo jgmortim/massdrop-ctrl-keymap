@@ -68,7 +68,7 @@ enum custom_keycodes {
     ENE,                   // N with tilde accent
     INV_EXC,               // Inverted exclamation point
     INV_QUS,               // Inverted question mark
-    OS_TOG
+    OS_TOG                 // Toggle OS mode between Windows and Linux
 };
 
 enum os {
@@ -183,7 +183,7 @@ void matrix_init_user(void) {
     rgb_time_out_enable = true;                         // Enable RGB timeout by default.
     rgb_enabled_flag = true;                            // Initially, keyboard RGB is enabled.
     rgb_time_out_saved_flag = rgb_matrix_get_flags();   // Save RGB matrix state for when keyboard comes back from ide.
-    os_mode = WINDOWS;
+    os_mode = WINDOWS;                                  // Default to Windows mode.
 };
 
 /* Runs just one time after everything else has initialized. */
@@ -212,7 +212,7 @@ void matrix_scan_user(void) {
     }
 };
 
-/* Executes the given alt code. */
+/* Executes the given alt code (Windows only). */
 void send_alt_code(char code[]) {
     uint8_t mod_state = get_mods(); // Gets the current mods
     unregister_mods(mod_state);     // Turns all active mods off
@@ -237,7 +237,19 @@ void send_alt_code(char code[]) {
     register_mods(mod_state); // Restores the mods to their original state
 }
 
-/* Enters the given command into the Windows Run dialog. */
+/* Inserts the given Unicode character via Unicode-entry mode (Linux only). */
+void send_unicode(const char *code) {
+    uint8_t mod_state = get_mods(); // Gets the current mods
+    unregister_mods(mod_state);     // Turns all active mods off
+
+    SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_RSFT) "u" SS_UP(X_RSFT) SS_UP(X_LCTL)); // Ctrl + Shift  + U,
+    SEND_STRING(code);                                                            // type in the code,
+    SEND_STRING(SS_TAP(X_ENT));                                                   // and press enter.
+
+    register_mods(mod_state); // Restores the mods to their original state
+}
+
+/* Enters the given command into the Windows Run dialog (Windows only). */
 void windows_run(const char *command) {
     SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_R) SS_UP(X_LGUI) SS_DELAY(50)); // Open the run dialog,
     SEND_STRING(command);                                                // type in the command,
@@ -273,13 +285,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         /* Toggle OS mode between Windows and Linux */
         case OS_TOG:
             if (record->event.pressed) {
-                // Win + r, "CALC", enter
                 if (os_mode == WINDOWS) {
                     os_mode = LINUX;
-                    SEND_STRING(SS_DELAY(500)"linux");
+//                    SEND_STRING(SS_DELAY(500)"linux");
                 } else {
                     os_mode = WINDOWS;
-                    SEND_STRING(SS_DELAY(500)"windows");
+//                    SEND_STRING(SS_DELAY(500)"windows");
                 }
                 return false;
             }
@@ -287,83 +298,105 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         /* Change Win + c to be Calculator instead of Cortana */
         case KC_C:
             if (record->event.pressed && get_mods() == MOD_BIT(KC_LGUI) && os_mode == WINDOWS) {
-                // Win + r, "CALC", enter
-                SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_R) SS_UP(X_LGUI) SS_DELAY(50) "CALC" SS_TAP(X_ENT));
+                windows_run("CALC");
                 return false;
             }
             return true;
         /* Change Win + s to be Snipping Tool instead of search */
         case KC_S:
             if (record->event.pressed && get_mods() == MOD_BIT(KC_LGUI) && os_mode == WINDOWS) {
-                // Win + r, "CALC", enter
-                SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_R) SS_UP(X_LGUI) SS_DELAY(50) "SnippingTool" SS_TAP(X_ENT));
+                windows_run("SnippingTool");
                 return false;
             }
             return true;
         /* Spanish Letters and Punctuation */
-        case A_ACUTE:
+        case A_ACUTE: // A with acute accent
             if (record->event.pressed) {
-                MODS_SHIFT
-                    ? send_alt_code("0193")  // Uppercase A with acute accent: ALT + 0193
-                    : send_alt_code("0225"); // Lowercase a with acute accent: ALT + 0225
+                if (os_mode == WINDOWS) {
+                    send_alt_code(MODS_SHIFT ? "0193" : "0225");
+                } else {
+                    send_unicode(MODS_SHIFT ? "00C1" : "00E1");
+                }
+                layer_off(3);
             }
-            layer_off(3);
             return false;
-        case E_ACUTE:
+        case E_ACUTE: // E with acute accent
             if (record->event.pressed) {
-                MODS_SHIFT
-                    ? send_alt_code("0201")  // Uppercase E with acute accent: ALT + 0201
-                    : send_alt_code("0233"); // Lowercase e with acute accent: ALT + 0233
+                if (os_mode == WINDOWS) {
+                    send_alt_code(MODS_SHIFT ? "0201" : "0233");
+                } else {
+                    send_unicode(MODS_SHIFT ? "00C9" : "00E9");
+                }
+                layer_off(3);
             }
-            layer_off(3);
             return false;
-        case I_ACUTE:
+        case I_ACUTE: // I with acute accent
             if (record->event.pressed) {
-                MODS_SHIFT
-                    ? send_alt_code("0205")  // Uppercase I with acute accent: ALT + 0205
-                    : send_alt_code("0237"); // Lowercase i with acute accent: ALT + 0237
+                if (os_mode == WINDOWS) {
+                    send_alt_code(MODS_SHIFT ? "0205" : "0237");
+                } else {
+                    send_unicode(MODS_SHIFT ? "00CD" : "00ED");
+                }
+                layer_off(3);
             }
-            layer_off(3);
             return false;
-        case O_ACUTE:
+        case O_ACUTE: // O with acute accent
             if (record->event.pressed) {
-                MODS_SHIFT
-                    ? send_alt_code("0211")  // Uppercase O with acute accent: ALT + 0211
-                    : send_alt_code("0243"); // Lowercase o with acute accent: ALT + 0243
+                if (os_mode == WINDOWS) {
+                    send_alt_code(MODS_SHIFT ? "0211" : "0243");
+                } else {
+                    send_unicode(MODS_SHIFT ? "00D3" : "00F3");
+                }
+                layer_off(3);
             }
-            layer_off(3);
             return false;
-        case U_ACUTE:
+        case U_ACUTE: // U with acute accent
             if (record->event.pressed) {
-                MODS_SHIFT
-                    ? send_alt_code("0218")  // Uppercase U with acute accent: ALT + 0218
-                    : send_alt_code("0250"); // Lowercase u with acute accent: ALT + 0250
+                if (os_mode == WINDOWS) {
+                    send_alt_code(MODS_SHIFT ? "0218" : "0250");
+                } else {
+                    send_unicode(MODS_SHIFT ? "00DA" : "00FA");
+                }
+                layer_off(3);
             }
-            layer_off(3);
             return false;
-        case ENE:
+        case ENE: // N with tilde accent
             if (record->event.pressed) {
-                MODS_SHIFT
-                    ? send_alt_code("0209")  // Uppercase N with tilde accent: ALT + 0209
-                    : send_alt_code("0241"); // Lowercase n with tilde accent: ALT + 0241
+                if (os_mode == WINDOWS) {
+                    send_alt_code(MODS_SHIFT ? "0209" : "0241");
+                } else {
+                    send_unicode(MODS_SHIFT ? "00D1" : "00F1");
+                }
+                layer_off(3);
             }
-            layer_off(3);
             return false;
         case INV_EXC:
             if (record->event.pressed) {
-                MODS_SHIFT
-                    ? send_alt_code("0161")  // Inverted exclamation point: ALT + 0161
-                    : SEND_STRING("1");
+                if (MODS_SHIFT) { // Inverted exclamation point
+                    if (os_mode == WINDOWS) {
+                        send_alt_code("0161");
+                    } else {
+                        send_unicode("00A1");
+                    }
+                    layer_off(3);
+                } else {
+                    SEND_STRING("1");
+                }
             }
-            layer_off(3);
             return false;
         case INV_QUS:
             if (record->event.pressed) {
-                MODS_SHIFT
-                    ? send_alt_code("0191")  // Inverted question mark: ALT + 0191
-                    : SEND_STRING("/");
+                if (MODS_SHIFT) { // Inverted question mark
+                    if (os_mode == WINDOWS) {
+                        send_alt_code("0191");
+                    } else {
+                        send_unicode("00BF");
+                    }
+                    layer_off(3);
+                } else {
+                    SEND_STRING("/");
+                }
             }
-            layer_off(3);
             return false;
         /* Defaults */
         case U_T_AUTO:
