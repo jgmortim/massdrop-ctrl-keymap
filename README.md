@@ -40,6 +40,7 @@ default keymap:
 | I   | USB Toggle Automatic GCR control                                                   |
 | N   | Toggle keyboard 6KRO/NKRO (Default state 6KRO)                                     |
 | U   | USB Extra Port Toggle Auto Detect                                                  |
+| Win | Toggle OS mode between Windows and Linus (Default state Windows)                   |
 
 ### L2 \ Numpad
 

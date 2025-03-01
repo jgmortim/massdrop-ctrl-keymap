@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Custom Windows shortcuts disabled in Linux mode
+- NUM LOCK is automatically turned on when activating the numpad layer
 
 ## [4.0.1] - 2025-02-27
 

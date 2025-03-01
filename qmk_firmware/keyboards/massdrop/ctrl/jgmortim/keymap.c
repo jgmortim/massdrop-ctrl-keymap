@@ -80,30 +80,16 @@ static uint16_t idle_timer;             // Idle LED timeout timer
 static uint16_t idle_second_counter;    // Idle LED seconds counter, counts seconds not milliseconds
 static uint8_t key_event_counter;       // This counter is used to check if any keys are being held
 
-void dance_numpad_toggle(tap_dance_state_t *state, void *user_data) {
-    if (IS_LAYER_ON(_NL)) {
-        layer_off(_NL);
-    } else {
-        bool num_lock = host_keyboard_led_state().num_lock;
-        if (!num_lock) { // If NUM LOCK isn't on, turn it on.
-            register_code(KC_NUM);
-            unregister_code(KC_NUM);
-        }
-        layer_on(_NL);
-    }
-}
-
 /* Associate tap dance keys with their functionality */
 tap_dance_action_t tap_dance_actions[] = {
     [TD_ALT_SL] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LALT, _SL),
-//    [TD_GRV_NL] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_GRV, _NL)
-    [TD_GRV_NL] = ACTION_TAP_DANCE_FN(dance_numpad_toggle)
+    [TD_GRV_NL] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_GRV, _NL)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_KL] = LAYOUT(
         KC_ESC,       KC_F1,   KC_F2,         KC_F3, KC_F4, KC_F5,  KC_F6, KC_F7, KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_PSCR, KC_SCRL, KC_PAUS,
-        KC_GRV,       KC_1,    KC_2,          KC_3,  KC_4,  KC_5,   KC_6,  KC_7,  KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_INS,  KC_HOME, KC_PGUP,
+        TD(TD_GRV_NL), KC_1,   KC_2,          KC_3,  KC_4,  KC_5,   KC_6,  KC_7,  KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_INS,  KC_HOME, KC_PGUP,
         KC_TAB,       KC_Q,    KC_W,          KC_E,  KC_R,  KC_T,   KC_Y,  KC_U,  KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,  KC_END,  KC_PGDN,
         KC_CAPS,      KC_A,    KC_S,          KC_D,  KC_F,  KC_G,   KC_H,  KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT,      KC_Z,    KC_X,          KC_C,  KC_V,  KC_B,   KC_N,  KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                            KC_UP,
@@ -111,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FL] = LAYOUT(
         _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_MUTE, _______, _______,
-        TD(TD_GRV_NL),  _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, KC_MSTP, KC_VOLU,
+        _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, KC_MSTP, KC_VOLU,
         _______, _______,  _______, _______, _______, _______, _______, U_T_AUTO,U_T_AGCR,_______, _______, _______, _______, _______, KC_MPRV, KC_MNXT, KC_VOLD,
         _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______,  _______, _______, _______, MD_BOOT, NK_TOGG, _______, _______, _______, _______, _______,                            _______,
@@ -150,12 +136,12 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         COPPER, COPPER, COPPER
     },
     [_FL] = {
-        ______, ______, ______, ______, ______, ______,   ______,   ______,   ______,   ______, ______, ______, ______,         ______, ______, ______,
-        ______, ______, ______, ______, ______, ______,   ______,   ______,   ______,   ______, ______, ______, ______, ______, ______, ______, ______,
-        ______, ______, ______, ______, ______, ______,   ______,   CPPR_BRT, CPPR_BRT, ______, ______, ______, ______, ______, ______, ______, ______,
-        ______, ______, ______, ______, ______, ______,   ______,   ______,   ______,   ______, ______, ______, ______,
-        ______, ______, ______, ______, ______, CPPR_BRT, CPPR_BRT, ______,   ______,   ______, ______, ______,                         ______,
-        ______, ______, ______,                 ______,                                 ______, ______, ______, ______,         ______, ______, ______
+        ______, ______,   ______, ______, ______, ______,   ______,   ______,   ______,   ______, ______, ______, ______,         ______, ______, ______,
+        ______, ______,   ______, ______, ______, ______,   ______,   ______,   ______,   ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______,   ______, ______, ______, ______,   ______,   CPPR_BRT, CPPR_BRT, ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______,   ______, ______, ______, ______,   ______,   ______,   ______,   ______, ______, ______, ______,
+        ______, ______,   ______, ______, ______, CPPR_BRT, CPPR_BRT, ______,   ______,   ______, ______, ______,                         ______,
+        ______, CPPR_BRT, ______,                 ______,                                 ______, ______, ______, ______,         ______, ______, ______
     },
     [_NL] = {
         ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,             CPPR_BRT, CPPR_BRT, CPPR_BRT,
@@ -441,6 +427,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         default:
             return true; //Process all other keycodes normally
     }
+}
+
+/* Runs everytime a layer change happens */
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        /* When turning on the numpad, make sure NUM LOCK is on */
+        case _NL:
+            bool num_lock = host_keyboard_led_state().num_lock;
+            if (!num_lock) { // If NUM LOCK isn't on, turn it on.
+                register_code(KC_NUM);
+                unregister_code(KC_NUM);
+            }
+            break;
+        /* No special logic for the other layers */
+        default:
+            break;
+    }
+  return state;
 }
 
 void set_layer_color(int layer) {
