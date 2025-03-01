@@ -13,10 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - OS mode toggle on `FN` + `Win`
 - OS indicator led to `Win` key
 - Full Spanish layer support in Linux mode via the Unicode-entry mode (`Ctrl` + `Shift` + `u`)
-
-### Changed
-
-- Custom Windows shortcuts disabled in Linux mode
+- Custom shortcuts in Linux mode:
+  - Pressing `Win` + `c` will now open the calculator. The specific macro that runs is: `Alt` + `F2`
+    to open the `run` dialog, typing in the string "gnome-calculator" and then pressing `ENTER`.
 - NUM LOCK is automatically turned on when activating the numpad layer
 
 ## [4.0.1] - 2025-02-27

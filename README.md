@@ -96,17 +96,22 @@ just pressing `!` and `?`, while the Spanish layer is active.
 
 After 5 minutes of inactivity, the LEDs will turn off. Pressing any key will turn them back on. 
 
-### Custom Shortcuts (Windows only)
+### Custom Shortcuts
 
-| Shortcut | Function      | Macro                          |
-|----------|---------------|--------------------------------|
-| Win + c  | Calculator    | Win + r, "calc", ENTER         |
-| Win + s  | Snipping Tool | Win + r, "SnippingTool", ENTER |
+| OS      | Shortcut | Function      | Macro                               |
+|---------|----------|---------------|-------------------------------------|
+| Windows | Win + c  | Calculator    | Win + r, "calc", ENTER              |
+| Windows | Win + s  | Snipping Tool | Win + r, "SnippingTool", ENTER      |
+| Linux   | Win + c  | Calculator    | Alt + F4, "gnome-calculator", ENTER |
 
-#### Notes
+Windows Notes:
 * Calculator replaces Cortana. I have Cortana disable so a calculator shortcut is much more useful.
-* Snipping Tool replaces search. Pressing the `Win` key followed by typing anything will open search already, 
- so using `Win` + `s` to open search has always seemed like a waste of a shortcut.
+* Snipping Tool replaces search. Pressing the `Win` key followed by typing anything will open search already,
+  so using `Win` + `s` to open search has always seemed like a waste of a shortcut.
+
+Linux Notes:
+* There is no custom shortcut for snipping screenshots, because the `Print Scrn` key is already sufficient.
+
 
 ### LED Layer Transparency
 
