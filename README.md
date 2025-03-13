@@ -22,6 +22,15 @@ An approximate rendering of my keyboard is below:
 * Keycaps: [KeyGeak Rome PBT - SA profile](https://keygeak.com/products/rome-pbt-ansi-iso-keycaps-set-sa-profile)
 * Foam: [StupidFish Designs](https://stupidfish.design/products/drop-ctrl-high-profile-case-and-plate-foam-set)
 
+## OS Modes
+
+The keyboard contains both a Windows mode and a Linux mode. The default mode is Windows. To ensure that all keyboard 
+functions work property, make sure the keyboard is in the correct mode for the current OS. 
+
+To toggle modes, press `FN` + `Win`. While holding down the `FN` key (i.e., the Function layer is active), the `win` 
+key will be backlit turquoise if Windows mode is active and purple if linux mode is active. After switching modes, the `win` 
+key will remain backlight for 3 seconds on all layers (in addition to always being backlit on the Function layer).
+
 ## Layers
 
 ### L0 \ Base
@@ -40,11 +49,12 @@ default keymap:
 | I   | USB Toggle Automatic GCR control                                                   |
 | N   | Toggle keyboard 6KRO/NKRO (Default state 6KRO)                                     |
 | U   | USB Extra Port Toggle Auto Detect                                                  |
+| Win | Toggle OS mode between Windows and Linus (Default state Windows)                   |
 
 ### L2 \ Numpad
 
-A numpad layer can be turned on and off by double tapping the grave mark (tilde) key while on any other layer. 
-The numpad is located on the upper right of the keyboard like so:
+A numpad layer can be turned on and off by double tapping the grave mark (tilde) key (which is using the `NUM LOCK` 
+key cap on my keyboard) while on any other layer. The numpad is located on the upper right of the keyboard like so:
 
 <details>
 <summary>Click to expand image</summary>
@@ -88,15 +98,20 @@ After 5 minutes of inactivity, the LEDs will turn off. Pressing any key will tur
 
 ### Custom Shortcuts
 
-| Shortcut | Function      | Macro                          |
-|----------|---------------|--------------------------------|
-| Win + c  | Calculator    | Win + r, "calc", ENTER         |
-| Win + s  | Snipping Tool | Win + r, "SnippingTool", ENTER |
+| OS      | Shortcut | Function      | Macro                               |
+|---------|----------|---------------|-------------------------------------|
+| Windows | Win + c  | Calculator    | Win + r, "calc", ENTER              |
+| Windows | Win + s  | Snipping Tool | Win + r, "SnippingTool", ENTER      |
+| Linux   | Win + c  | Calculator    | Alt + F4, "gnome-calculator", ENTER |
 
-#### Notes
+Windows Notes:
 * Calculator replaces Cortana. I have Cortana disable so a calculator shortcut is much more useful.
-* Snipping Tool replaces search. Pressing the `Win` key followed by typing anything will open search already, 
- so using `Win` + `s` to open search has always seemed like a waste of a shortcut.
+* Snipping Tool replaces search. Pressing the `Win` key followed by typing anything will open search already,
+  so using `Win` + `s` to open search has always seemed like a waste of a shortcut.
+
+Linux Notes:
+* There is no custom shortcut for snipping screenshots, because the `Print Scrn` key is already sufficient.
+
 
 ### LED Layer Transparency
 
@@ -111,6 +126,8 @@ needs to be compiled using [Massdrop's fork](https://github.com/Massdrop/qmk_fir
 Specifically, using the [feature/riot_xap](https://github.com/Massdrop/qmk_firmware/tree/feature/riot_xap) branch.
 
 ### Windows
+
+Tested using Windows 10.
 
 I wasn't able to compile this using [QMK MSYS](https://msys.qmk.fm/). When I tried, I got an error stating that
 Massdrop's fork of qmk_firmware "exists but is not a qmk_firmware clone!"
@@ -129,9 +146,21 @@ them into the `qmk_firmware/keyboards/massdrop/ctrl/jgmortim` directory of the r
 
 You can then use MSYS2 MINGW64 to compile this keymap using `qmk compile -kb massdrop/ctrl -km jgmortim`.
 
-### Other OS
+### Linux
 
-I'm currently only using Windows 10, so if you try to use this on Linux or Mac, you'll be figuring that out on your own.
+Tested using Ubuntu.
+
+As with Windows, I relied on the instructions for
+"[Building a keyboard firmware](https://matt3o.com/building-a-keyboard-firmware/)" on Matt3o.com.
+
+Notes:
+* The git clone will be `git clone -b feature/riot_xap https://github.com/Massdrop/qmk_firmware` instead of
+  `git clone https://github.com/qmk/qmk_firmware`.
+
+Next copy all the files from the `qmk_firmware/keyboards/massdrop/ctrl/jgmortim` directory in this repo and place
+them into the `qmk_firmware/keyboards/massdrop/ctrl/jgmortim` directory of the repo you cloned.
+
+You can then compile this keymap using `make massdrop/ctrl:jgmortim`.
 
 ## Flashing
 
@@ -148,7 +177,7 @@ Use the command `mdloader --first --download massdrop_ctrl_jgmortim.bin --restar
 ## Troubleshooting
 
 ### LEDs not turning on
-If the LED are not turning on or if they turn off after being on for a second, it most likely means your keyboard is
+If the LEDs are not turning on or if they turn off after being on for a second, it most likely means your keyboard is
 not getting enough power. This is especially common if you're using a USB hub as they can struggle to deliver enough
 power to all connected devices.
 

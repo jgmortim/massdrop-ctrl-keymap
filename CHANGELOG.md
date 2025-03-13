@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.0] - 2025-03-12
+
+### Added
+
+- Linux compiling instructions to README
+- OS mode toggle on `FN` + `Win`
+- OS indicator led to `Win` key
+- Full Spanish layer support in Linux mode via the Unicode-entry mode (`Ctrl` + `Shift` + `u`)
+- Custom shortcuts in Linux mode:
+  - Pressing `Win` + `c` will now open the calculator. The specific macro that runs is: `Alt` + `F2`
+    to open the `run` dialog, typing in the string "gnome-calculator" and then pressing `ENTER`.
+- NUM LOCK is automatically turned on when activating the numpad layer
+
 ## [4.0.1] - 2025-02-27
 
 ### Changed
@@ -149,6 +162,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - This CHANGELOG file
 - gitignore
 
+[4.1.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.0.1...v4.1.0
 [4.0.1]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v3.1.0...v4.0.0
 [3.1.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v3.0.1...v3.1.0
