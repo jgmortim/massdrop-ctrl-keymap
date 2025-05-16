@@ -27,9 +27,10 @@ An approximate rendering of my keyboard is below:
 The keyboard contains both a Windows mode and a Linux mode. The default mode is Windows. To ensure that all keyboard 
 functions work property, make sure the keyboard is in the correct mode for the current OS. 
 
-To toggle modes, press `FN` + `Win`. While holding down the `FN` key (i.e., the Function layer is active), the `win` 
-key will be backlit turquoise if Windows mode is active and purple if linux mode is active. After switching modes, the `win` 
-key will remain backlight for 3 seconds on all layers (in addition to always being backlit on the Function layer).
+To toggle modes, press <kbd>fn</kbd>+<kbd>Win</kbd>. While holding down the <kbd>fn</kbd> key (i.e., the Function 
+layer is active), the <kbd>Win</kbd> key will be backlit turquoise if Windows mode is active and purple if linux mode
+is active. After switching modes, the <kbd>Win</kbd> key will remain backlight for 3 seconds on all layers (in addition
+to always being backlit on the Function layer).
 
 ## Layers
 
@@ -40,7 +41,7 @@ render above, but the layout works as one would expect.
 
 ### L1 \ Function
 
-Holding down the `FN` key activates the function layer, which features functions brought in from the 
+Holding down the <kbd>fn</kbd> key activates the function layer, which features functions brought in from the 
 default keymap as well as an additional OS toggle function:
 
 | Key | Function                                                                           |
@@ -53,8 +54,9 @@ default keymap as well as an additional OS toggle function:
 
 ### L2 \ Numpad
 
-A numpad layer can be turned on and off by double tapping the grave mark (tilde) key (which is using the `NUM LOCK` 
-key cap on my keyboard) while on any other layer. The numpad is located on the upper right of the keyboard like so:
+A numpad layer can be turned on and off by double tapping the grave mark (tilde) key (which is using the 
+<kbd>Num Lock</kbd> key cap on my keyboard) while on any other layer. The numpad is located on the upper right of the
+keyboard like so:
 
 <details>
 <summary>Click to expand image</summary>
@@ -66,9 +68,10 @@ While the numpad layer is active, the numpad keys are backlit with copper LEDs. 
 
 ### L3 \ Spanish
 
-The Spanish layer can be turned on and off by double tapping `LEFT ALT` while on any other layer. While the Spanish
-layer is active, the `LEFT ALT` key will be backlit with a cyan LED. The Spanish layer is automatically turned off 
-after typing a Spanish letter or punctuation mark. All keys other than `A`, `E`, `I`, `O`, `U`, `N`, `?`, and `!`
+The Spanish layer can be turned on and off by double tapping <kbd>Left Alt</kbd> while on any other layer. While the
+Spanish layer is active, the <kbd>Left Alt</kbd> key will be backlit with a cyan LED. The Spanish layer is
+automatically turned off after typing a Spanish letter or punctuation mark. All keys other than <kbd>A</kbd>, 
+<kbd>E</kbd>, <kbd>I</kbd>, <kbd>O</kbd>, <kbd>U</kbd>, <kbd>N</kbd>, <kbd>?</kbd>, and <kbd>!</kbd>
 are transparent.
 
 <details>
@@ -80,15 +83,16 @@ are transparent.
 #### Letters with Accents
 
 While the Spanish layer is active, type the corresponding letter to get an accented letter. For example, pressing
-`a` will produce `á`, `e` will produce `é`, `n` will produce `ñ` and so on. To get capital letters, hold `SHIFT` at
-the same time as pressing the corresponding letter.
+<kbd>a</kbd> will produce <kbd>á</kbd>, <kbd>e</kbd> will produce <kbd>é</kbd>, <kbd>n</kbd> will produce <kbd>ñ</kbd>
+and so on. To get capital letters, hold <kbd>Shift</kbd> at the same time as pressing the corresponding letter.
 
 #### Inverted Punctuation Marks
 
-For `¡` and `¿`,  use `SHIFT`+`1` and `SHIFT`+`/`, respectively.
+For <kbd>¡</kbd> and <kbd>¿</kbd>, use <kbd>Shift</kbd>+<kbd>1</kbd> and <kbd>Shift</kbd>+<kbd>/</kbd>, respectively.
 
-Note that `SHIFT`+`1` is `!` and `SHIFT`+`/` is `?`, so effectively, you could also think of these as
-just pressing `!` and `?`, while the Spanish layer is active.
+Note that <kbd>Shift</kbd>+<kbd>1</kbd> is <kbd>!</kbd> and <kbd>Shift</kbd>+<kbd>/</kbd> is <kbd>?</kbd>, so 
+effectively, you could also think of these as just pressing <kbd>!</kbd> and <kbd>?</kbd>, while the Spanish layer
+is active.
 
 ## Other Features
 
@@ -98,20 +102,19 @@ After 5 minutes of inactivity, the LEDs will turn off. Pressing any key will tur
 
 ### Custom Shortcuts
 
-| OS      | Shortcut | Function      | Macro                               |
-|---------|----------|---------------|-------------------------------------|
-| Windows | Win + c  | Calculator    | Win + r, "calc", ENTER              |
-| Windows | Win + s  | Snipping Tool | Win + r, "SnippingTool", ENTER      |
-| Linux   | Win + c  | Calculator    | Alt + F4, "gnome-calculator", ENTER |
+| OS      | Shortcut                    | Function      | Macro                                                              |
+|---------|-----------------------------|---------------|--------------------------------------------------------------------|
+| Windows | <kbd>Win</kbd>+<kbd>c</kbd> | Calculator    | <kbd>Win</kbd>+<kbd>r</kbd>, "calc", <kbd>Enter</kbd>              |
+| Windows | <kbd>Win</kbd>+<kbd>s</kbd> | Snipping Tool | <kbd>Win</kbd>+<kbd>r</kbd>, "SnippingTool", <kbd>Enter</kbd>      |
+| Linux   | <kbd>Win</kbd>+<kbd>c</kbd> | Calculator    | <kbd>Alt</kbd>+<kbd>F4</kbd>, "gnome-calculator", <kbd>Enter</kbd> |
 
 Windows Notes:
 * Calculator replaces Cortana. I have Cortana disable so a calculator shortcut is much more useful.
-* Snipping Tool replaces search. Pressing the `Win` key followed by typing anything will open search already,
-  so using `Win` + `s` to open search has always seemed like a waste of a shortcut.
+* Snipping Tool replaces search. Pressing the <kbd>Win</kbd> key followed by typing anything will open search already,
+  so using <kbd>Win</kbd>+<kbd>s</kbd> to open search has always seemed like a waste of a shortcut.
 
 Linux Notes:
-* There is no custom shortcut for snipping screenshots, because the `Print Scrn` key is already sufficient.
-
+* There is no custom shortcut for snipping screenshots, because the <kbd>Print Scrn</kbd> key is already sufficient.
 
 ### LED Layer Transparency
 
@@ -122,8 +125,8 @@ is off on `layer[3]`, but its red on `layer[2]`, then if both layers `2` and `3`
 ### Lock key Indicator LEDs
 
 Since the Massdrop CTRL doesn't have dedicated indicator LEDs for the lock keys, the LEDs in the lock keys serve as 
-indicator LEDs. Specifically, the `Caps Lock` and the `Scrl Lock` keys are backlit with copper LEDs when Caps Lock 
-and Scroll Lock are on, respectively.
+indicator LEDs. Specifically, the <kbd>Caps Lock</kbd> and the <kbd>Scrl Lock</kbd> keys are backlit with copper LEDs 
+when Caps Lock and Scroll Lock are on, respectively.
 
 ## Compiling
 
