@@ -40,8 +40,8 @@ render above, but the layout works as one would expect.
 
 ### L1 \ Function
 
-Holding down the `FN` key activates the function layer, which features the following functions brought in from the 
-default keymap:
+Holding down the `FN` key activates the function layer, which features functions brought in from the 
+default keymap as well as an additional OS toggle function:
 
 | Key | Function                                                                           |
 |-----|------------------------------------------------------------------------------------|
@@ -119,6 +119,12 @@ The LED configuration on each layer features transparency. That is to say, if an
 layer `n`, it will be set to the value of the first active layer checking from `n-1` to `0`. For example, if `LED[6]`
 is off on `layer[3]`, but its red on `layer[2]`, then if both layers `2` and `3` are active, `LED[6]` will be red.
 
+### Lock key Indicator LEDs
+
+Since the Massdrop CTRL doesn't have dedicated indicator LEDs for the lock keys, the LEDs in the lock keys serve as 
+indicator LEDs. Specifically, the `Caps Lock` and the `Scrl Lock` keys are backlit with copper LEDs when Caps Lock 
+and Scroll Lock are on, respectively.
+
 ## Compiling
 
 This firmware cannot be compiled with the official [qmk_firmware](https://github.com/qmk/qmk_firmware), but instead 
@@ -127,7 +133,8 @@ Specifically, using the [feature/riot_xap](https://github.com/Massdrop/qmk_firmw
 
 ### Windows
 
-Tested using Windows 10.
+Tested using Windows 10 through version [4.1.0](https://github.com/jgmortim/massdrop-ctrl-keymap/releases/tag/v4.1.0),
+and with Windows 11 for all later versions.
 
 I wasn't able to compile this using [QMK MSYS](https://msys.qmk.fm/). When I tried, I got an error stating that
 Massdrop's fork of qmk_firmware "exists but is not a qmk_firmware clone!"
