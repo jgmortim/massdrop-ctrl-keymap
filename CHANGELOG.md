@@ -5,18 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.0] - 2025-05-15
+
+### Added
+
+- Caps Lock indicator LED
+- Scroll Lock indicator LED
+- Additional details to the README
+
+### Changed
+
+- Standardized formatting of keys in README and CHANGELOG
+
 ## [4.1.0] - 2025-03-12
 
 ### Added
 
 - Linux compiling instructions to README
-- OS mode toggle on `FN` + `Win`
-- OS indicator led to `Win` key
-- Full Spanish layer support in Linux mode via the Unicode-entry mode (`Ctrl` + `Shift` + `u`)
+- OS mode toggle on <kbd>fn</kbd>+<kbd>Win</kbd>
+- OS indicator led to <kbd>Win</kbd> key
+- Full Spanish layer support in Linux mode via the Unicode-entry mode (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>u</kbd>)
 - Custom shortcuts in Linux mode:
-  - Pressing `Win` + `c` will now open the calculator. The specific macro that runs is: `Alt` + `F2`
-    to open the `run` dialog, typing in the string "gnome-calculator" and then pressing `ENTER`.
-- NUM LOCK is automatically turned on when activating the numpad layer
+  - Pressing <kbd>Win</kbd>+<kbd>c</kbd> will now open the calculator. The specific macro that runs is: 
+    <kbd>Alt</kbd>+<kbd>F2</kbd> to open the `run` dialog, typing in the string "gnome-calculator" and then pressing
+    <kbd>Enter</kbd>.
+- Num Lock is automatically turned on when activating the numpad layer
 
 ## [4.0.1] - 2025-02-27
 
@@ -33,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Speed issue with custom Win+r shortcuts (#13)
+- Speed issue with custom <kbd>Win</kbd>+<kbd>r</kbd> shortcuts (#13)
 
 ## [3.1.0] - 2025-02-01
 
@@ -58,10 +71,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Shortcuts for Windows Calculator and Snipping Tool
-  - Pressing `Win` + `c` will now open the calculator instead of Cortana. The specific macro that runs is: `Win` + `r`
-    to open the `run` dialog, typing in the string "calc" and then pressing `ENTER`.
-  - Pressing `Win` + `s` will now open Snipping Tool instead of search. The specific macro that runs is: `Win` + `r` 
-    to open the `run` dialog, typing in the string "SnippingTool" and then pressing `ENTER`.
+  - Pressing <kbd>Win</kbd>+<kbd>c</kbd> will now open the calculator instead of Cortana. The specific macro that runs
+    is: <kbd>Win</kbd>+<kbd>r</kbd> to open the `run` dialog, typing in the string "calc" and then pressing 
+    <kbd>Enter</kbd>.
+  - Pressing <kbd>Win</kbd>+<kbd>s</kbd> will now open Snipping Tool instead of search. The specific macro that runs 
+    is: <kbd>Win</kbd>+<kbd>r</kbd> to open the `run` dialog, typing in the string "SnippingTool" and then pressing
+    <kbd>Enter</kbd>.
 - Backlight to FN layer keys while the FN layer is active
 - Additional details to the README
 
@@ -111,13 +126,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Cyan indicator LED on left ALT to indicate that the Spanish layer is active
+- Cyan indicator LED on <kbd>Left Alt</kbd> to indicate that the Spanish layer is active
 
 ### Changed
 
 - Spanish layers merged into a single layer
-- Spanish layer is no longer toggled by holding `CAPS LOCK`. Instead, the Spanish layer is turned on and off by
-  double tapping left ALT.
+- Spanish layer is no longer toggled by holding <kbd>Caps Lock</kbd>. Instead, the Spanish layer is turned on and off
+  by double tapping <kbd>Left Alt</kbd>.
 - The Spanish layer is automatically turned off after typing a Spanish letter
 - README to reflect changes
 
@@ -162,6 +177,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - This CHANGELOG file
 - gitignore
 
+[4.2.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.1.0...v4.2.0
 [4.1.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.0.1...v4.1.0
 [4.0.1]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v3.1.0...v4.0.0
