@@ -28,7 +28,7 @@ The keyboard contains both a Windows mode and a Linux mode. The default mode is 
 functions work property, make sure the keyboard is in the correct mode for the current OS. 
 
 To toggle modes, press <kbd>fn</kbd>+<kbd>Win</kbd>. While holding down the <kbd>fn</kbd> key (i.e., the Function 
-layer is active), the <kbd>Win</kbd> key will be backlit turquoise if Windows mode is active and purple if linux mode
+layer is active), the <kbd>Win</kbd> key will be backlit turquoise if Windows mode is active and purple if Linux mode
 is active. After switching modes, the <kbd>Win</kbd> key will remain backlight for 3 seconds on all layers (in addition
 to always being backlit on the Function layer).
 
@@ -120,7 +120,7 @@ Linux Notes:
 
 The LED configuration on each layer features transparency. That is to say, if an LED is off/transparent at a given
 layer `n`, it will be set to the value of the first active layer checking from `n-1` to `0`. For example, if `LED[6]`
-is off on `layer[3]`, but its red on `layer[2]`, then if both layers `2` and `3` are active, `LED[6]` will be red.
+is off on `layer[3]`, but it's red on `layer[2]`, then if both layers `2` and `3` are active, `LED[6]` will be red.
 
 ### Lock key Indicator LEDs
 
