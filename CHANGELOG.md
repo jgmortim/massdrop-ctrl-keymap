@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Refactor Windows and Linux specific functions to own files.
 - Refactor accented letter functionality.
+- Other refactoring.
 
 ### Fixed
 
