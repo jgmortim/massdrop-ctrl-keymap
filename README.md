@@ -86,15 +86,16 @@ Spanish letter or punctuation mark. All keys other than <kbd>A</kbd>, <kbd>E</kb
 
 While the Spanish layer is active, type the corresponding letter to get an accented letter. For example, pressing
 <kbd>a</kbd> will produce <kbd>á</kbd>, <kbd>e</kbd> will produce <kbd>é</kbd>, <kbd>n</kbd> will produce <kbd>ñ</kbd>
-and so on. To get capital letters, hold <kbd>Shift</kbd> at the same time as pressing the corresponding letter.
+and so on. To get capital letters, either use <kbd>Caps Lock</kbd> or hold <kbd>Shift</kbd> at the same time as
+pressing the corresponding letter.
 
 #### Inverted Punctuation Marks
 
 For <kbd>¡</kbd> and <kbd>¿</kbd>, use <kbd>Shift</kbd>+<kbd>1</kbd> and <kbd>Shift</kbd>+<kbd>/</kbd>, respectively.
 
-Note that <kbd>Shift</kbd>+<kbd>1</kbd> is <kbd>!</kbd> and <kbd>Shift</kbd>+<kbd>/</kbd> is <kbd>?</kbd>, so
-effectively, you could also think of these as just pressing <kbd>!</kbd> and <kbd>?</kbd>, while the Spanish layer
-is active.
+Note that <kbd>Shift</kbd>+<kbd>1</kbd> is normally <kbd>!</kbd> and <kbd>Shift</kbd>+<kbd>/</kbd> is normally
+<kbd>?</kbd>. So effectively, you could also think of these as just pressing <kbd>!</kbd> and <kbd>?</kbd>, while the
+Spanish layer is active.
 
 ## Other Features
 
@@ -190,6 +191,7 @@ Use the command `mdloader --first --download massdrop_ctrl_jgmortim.bin --restar
 ## Troubleshooting
 
 ### LEDs not turning on
+
 If the LEDs are not turning on or if they turn off after being on for a second, it most likely means your keyboard is
 not getting enough power. This is especially common if you're using a USB hub as they can struggle to deliver enough
 power to all connected devices.
@@ -202,9 +204,11 @@ power to all connected devices.
 * RGB timeout code is based on the implementation in [endgame keymap](https://github.com/Massdrop/qmk_firmware/tree/feature/riot_xap/keyboards/massdrop/ctrl/keymaps/endgame).
 
 ### Resources
-* The images in this README were created using [Keyboard Layout Editor v0.15](https://www.keyboard-layout-editor.com/), 
-  the specific JSON needed to recreate these images can be found under `/resources/json/`.
-* This README contains colored squares (sourced from [Placehold](https://placehold.co)) each time an LED color is
-  mentioned. The color codes used in this README are different from the codes actually driving the LEDs. This is
-  because the LEDs on the keyboard are not very color accurate. The color codes in this README are approximations of
-  the actual output on the keyboard. 
+
+* The images in this README were created using [Keyboard Layout Editor v0.15](https://www.keyboard-layout-editor.com/). 
+  The specific JSON needed to recreate these images can be found under `/resources/json/`.
+* Each time this README mentions the color of an LED, a colored square is displayed. These image ares sourced from
+  [Placehold](https://placehold.co).
+  * Note: The color codes used in this README are different from the codes actually driving the LEDs. This is because
+    the LEDs on the keyboard are not very color accurate. The color codes in this README are approximations of the
+    actual output on the keyboard. 
