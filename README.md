@@ -28,9 +28,10 @@ The keyboard contains both a Windows mode and a Linux mode. The default mode is 
 functions work property, make sure the keyboard is in the correct mode for the current OS. 
 
 To toggle modes, press <kbd>fn</kbd>+<kbd>Win</kbd>. While holding down the <kbd>fn</kbd> key (i.e., the Function 
-layer is active), the <kbd>Win</kbd> key will be backlit turquoise if Windows mode is active and purple if Linux mode
-is active. After switching modes, the <kbd>Win</kbd> key will remain backlight for 3 seconds on all layers (in addition
-to always being backlit on the Function layer).
+layer is active), the <kbd>Win</kbd> key will be backlit turquoise (<span style="color:#11CAC4">&#9724;</span>)
+if Windows mode is active and purple (<span style="color:#C913DD">&#9724;</span>) if Linux mode is active. After
+switching modes, the <kbd>Win</kbd> key will remain backlight for 3 seconds on all layers (in addition to always
+being backlit on the Function layer).
 
 ## Layers
 
@@ -64,12 +65,14 @@ keyboard like so:
 ![numpad layout](resources/images/numpad.png)
 </details>
 
-While the numpad layer is active, the numpad keys are backlit with copper LEDs. All other keys are transparent.
+While the numpad layer is active, the numpad keys are backlit with copper
+(<span style="color:#DC614D">&#9724;</span>) LEDs. All other keys are transparent.
 
 ### L3 \ Spanish
 
 The Spanish layer can be turned on and off by double tapping <kbd>Left Alt</kbd> while on any other layer. While the
-Spanish layer is active, the <kbd>Left Alt</kbd> key will be backlit with a cyan LED. The Spanish layer is
+Spanish layer is active, the <kbd>Left Alt</kbd> key will be backlit with a cyan
+(<span style="color:#1194ca">&#9724;</span>) LED. The Spanish layer is
 automatically turned off after typing a Spanish letter or punctuation mark. All keys other than <kbd>A</kbd>, 
 <kbd>E</kbd>, <kbd>I</kbd>, <kbd>O</kbd>, <kbd>U</kbd>, <kbd>N</kbd>, <kbd>?</kbd>, and <kbd>!</kbd>
 are transparent.
@@ -118,15 +121,16 @@ Linux Notes:
 
 ### LED Layer Transparency
 
-The LED configuration on each layer features transparency. That is to say, if an LED is off/transparent at a given
-layer `n`, it will be set to the value of the first active layer checking from `n-1` to `0`. For example, if `LED[6]`
-is off on `layer[3]`, but it's red on `layer[2]`, then if both layers `2` and `3` are active, `LED[6]` will be red.
+The LED configuration on each layer features transparency. That is to say, if an LED is off/transparent (&#9723;) at a
+given layer `n`, it will be set to the value of the first active layer checking from `n-1` to `0`. For example, if
+`LED[6]` is off (&#9723;) on `layer[3]`, but it's red (<span style="color:red">&#9724;</span>) on `layer[2]`, then if
+both layers `2` and `3` are active, `LED[6]` will be red (<span style="color:red">&#9724;</span>).
 
 ### Lock key Indicator LEDs
 
 Since the Massdrop CTRL doesn't have dedicated indicator LEDs for the lock keys, the LEDs in the lock keys serve as 
-indicator LEDs. Specifically, the <kbd>Caps Lock</kbd> and the <kbd>Scrl Lock</kbd> keys are backlit with copper LEDs 
-when Caps Lock and Scroll Lock are on, respectively.
+indicator LEDs. Specifically, the <kbd>Caps Lock</kbd> and the <kbd>Scrl Lock</kbd> keys are backlit with copper
+(<span style="color:#DC614D">&#9724;</span>) LEDs when Caps Lock and Scroll Lock are on, respectively.
 
 ## Compiling
 
@@ -200,3 +204,6 @@ power to all connected devices.
 
 * The JSON files under `/resources/json/` are compatible with https://www.keyboard-layout-editor.com/ and were used
   to generate the images in this README.
+* This README contains colored squared each time an LED color is mentioned. The color codes used in this README are 
+  different from the codes actually driving the LEDs. This is because the LEDs on the keyboard are not very color
+  accurate. The color codes in this README are approximations of the actual output on the keyboard. 
