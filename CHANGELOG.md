@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Colored preview squares to README (e.g., <span style="color:#1194ca">&#9724;</span>)
+- Colored preview squares to README (e.g., ![#11CAC4](https://placehold.co/10x10/11CAC4/11CAC4))
 
 ### Changed
 
