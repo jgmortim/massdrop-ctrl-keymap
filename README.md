@@ -42,7 +42,7 @@ render above, but the layout works as one would expect.
 
 ### L1 \ Function
 
-Holding down the <kbd>fn</kbd> key activates the function layer, which features functions brought in from the
+Holding down the <kbd>fn</kbd> key activates the function layer, which features hardware functions brought in from the
 default keymap as well as an additional OS toggle function:
 
 | Key | Function                                                                           |
@@ -97,27 +97,65 @@ Note that <kbd>Shift</kbd>+<kbd>1</kbd> is normally <kbd>!</kbd> and <kbd>Shift<
 <kbd>?</kbd>. So effectively, you could also think of these as just pressing <kbd>!</kbd> and <kbd>?</kbd>, while the
 Spanish layer is active.
 
+## Custom Shortcuts
+
+| OS      | Shortcut                    | Function                                                  | Macro                                                                                              |
+|---------|-----------------------------|-----------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| Windows | <kbd>Win</kbd>+<kbd>a</kbd> | [Toggle audio output device](#Toggle-Audio-Output-Device) | <kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>v</kbd>, <kbd>Down</kbd>×`n`, <kbd>Enter</kbd>, <kbd>Esc</kbd> |
+| Windows | <kbd>Win</kbd>+<kbd>c</kbd> | [Calculator](#Calculator)                                 | <kbd>Win</kbd>+<kbd>r</kbd>, "CALC", <kbd>Enter</kbd>                                              |
+| Linux   | <kbd>Win</kbd>+<kbd>c</kbd> | [Calculator](#Calculator)                                 | <kbd>Alt</kbd>+<kbd>F4</kbd>, "gnome-calculator", <kbd>Enter</kbd>                                 |
+| Windows | <kbd>Win</kbd>+<kbd>s</kbd> | [Snipping Tool](#Snipping-Tool)                           | <kbd>Win</kbd>+<kbd>r</kbd>, "SnippingTool", <kbd>Enter</kbd>                                      |
+
+
+### Toggle Audio Output Device
+
+> <kbd>Win</kbd>+<kbd>a</kbd>
+
+This shortcut is available in Windows mode, and it causes the system to switch to the next audio output device in the
+list. In particular, it works by opening the sound output page of quick settings
+(<kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>v</kbd>). Pressing the <kbd>Down</kbd> key until the next device is highlighted,
+pressing <kbd>Enter</kbd> to select the device, and finally pressing <kbd>Esc</kbd> to close the menu. This behavior
+overrides the default <kbd>Win</kbd>+<kbd>a</kbd> shortcut which opens Action Center.
+
+This feature is limited in that the keyboard has no way of knowing which audio device is selected at boot, but it
+assumes the first device is selected. The first time this shortcut is used, it will toggle to the second device. At
+which point, the Windows and the keyboard will be in sync. If you manually change the output device, they will become
+out of sync again.
+
+To function correctly, the `NUMBER_OF_AUDIO_OUTPUT_DEVICES` needs to be set appropriately in `config.h`. This field is
+not dynamic. If you add or remove an audio output device, you'll need to update `config.h` and reflash the keyboard.
+
+### Calculator
+
+> <kbd>Win</kbd>+<kbd>c</kbd>
+
+This shortcut is available in both Linux and Windows modes.
+
+In Windows mode, this shortcut opens the run dialog (<kbd>Win</kbd>+<kbd>r</kbd>), types `CALC`, and presses
+<kbd>Enter</kbd>. This opens the Windows calculator app. This behavior overrides the default
+<kbd>Win</kbd>+<kbd>c</kbd> shortcut which launches Cortana (Windows 10) or Copilot (Windows 11). I have these AI
+assistants disabled, so a calculator shortcut is much more useful.
+
+In Linux mode, this shortcut opens the run dialog (<kbd>Alt</kbd>+<kbd>F4</kbd>), types `gnome-calculator`, and presses
+<kbd>Enter</kbd>. This opens the Gnome calculator app.
+
+### Snipping Tool
+
+> <kbd>Win</kbd>+<kbd>s</kbd>
+
+This shortcut is available in Windows mode, and it opens the Snipping Tool. In particular, it works by opening the run
+dialog (<kbd>Win</kbd>+<kbd>r</kbd>), typing `SnippingTool`, and pressing <kbd>Enter</kbd>. This behavior overrides the
+default <kbd>Win</kbd>+<kbd>s</kbd> shortcut which opens search. Pressing the <kbd>Win</kbd> key followed by typing
+anything will open search already, so using <kbd>Win</kbd>+<kbd>s</kbd> to open search has always seemed like a waste
+of a shortcut. And on top of that, it's redundant with <kbd>Win</kbd>+<kbd>q</kbd> which is also search.
+
+This shortcut is not available in Linux mode because the <kbd>Print Scrn</kbd> key is already sufficient.
+
 ## Other Features
 
 ### LED Timeout
 
 After 5 minutes of inactivity, the LEDs will turn off. Pressing any key will turn them back on.
-
-### Custom Shortcuts
-
-| OS      | Shortcut                    | Function      | Macro                                                              |
-|---------|-----------------------------|---------------|--------------------------------------------------------------------|
-| Windows | <kbd>Win</kbd>+<kbd>c</kbd> | Calculator    | <kbd>Win</kbd>+<kbd>r</kbd>, "calc", <kbd>Enter</kbd>              |
-| Windows | <kbd>Win</kbd>+<kbd>s</kbd> | Snipping Tool | <kbd>Win</kbd>+<kbd>r</kbd>, "SnippingTool", <kbd>Enter</kbd>      |
-| Linux   | <kbd>Win</kbd>+<kbd>c</kbd> | Calculator    | <kbd>Alt</kbd>+<kbd>F4</kbd>, "gnome-calculator", <kbd>Enter</kbd> |
-
-Windows Notes:
-* Calculator replaces Cortana. I have Cortana disable so a calculator shortcut is much more useful.
-* Snipping Tool replaces search. Pressing the <kbd>Win</kbd> key followed by typing anything will open search already,
-  so using <kbd>Win</kbd>+<kbd>s</kbd> to open search has always seemed like a waste of a shortcut.
-
-Linux Notes:
-* There is no custom shortcut for snipping screenshots, because the <kbd>Print Scrn</kbd> key is already sufficient.
 
 ### LED Layer Transparency
 
