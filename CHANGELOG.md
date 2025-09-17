@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.1] - 2025-09-16
+
+### Added
+
+- Colored preview squares to README (e.g., ![#11CAC4](https://placehold.co/10x10/11CAC4/11CAC4))
+
+### Changed
+
+- Refactor Windows and Linux specific functions to own files
+- Refactor accented letter functionality
+- Other refactoring
+
+### Fixed
+
+* `TAP_DANCE_ENABLE = yes` was missing from `rules.mk`
+
 ## [4.2.0] - 2025-05-15
 
 ### Added
@@ -115,7 +131,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - LED layer transparency. If an LED is off/transparent at a given layer `n`, it will be set to the value of the first
-  active layer checking from `n-1` to `0`. For example, if `LED[6]` is off on `layer[3]`, but its red on `layer[2]`, 
+  active layer checking from `n-1` to `0`. For example, if `LED[6]` is off on `layer[3]`, but it's red on `layer[2]`, 
   then if both layers `2` and `3` are active, `LED[6]` will be red.
 
 ### Changed
@@ -177,6 +193,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - This CHANGELOG file
 - gitignore
 
+[4.2.1]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.2.0...v4.2.1
 [4.2.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.1.0...v4.2.0
 [4.1.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.0.1...v4.1.0
 [4.0.1]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.0.0...v4.0.1

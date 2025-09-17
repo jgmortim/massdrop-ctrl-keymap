@@ -17,38 +17,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-
-#define MILLISECONDS_IN_SECOND 1000
-
-#define COPPER {12, 255, 100}
-#define CPPR_BRT {12, 255, 225}
-#define CYAN {HSV_CYAN}
-#define WIN_IND {HSV_SPRINGGREEN} // Windows mode indicator LED color.
-#define LNX_IND {HSV_PURPLE}      // Linux mode indicator LED color.
-#define CAPS_IND {12, 255, 225}   // Caps Lock indicator LED color.
-#define SCRL_IND {12, 255, 225}   // Scroll Lock indicator LED color.
-#define ______ {HSV_OFF}          // 5 underscores instead of the 6 used by the KC_TRNS alias.
-
-#define RGB_TIME_OUT 300       // 300 seconds (5 minutes).
-#define CAPS_LOCK_IND_LED 50   // Index of the Caps Lock indicator LED (50 is the Caps Lock key).
-#define SCRL_LOCK_IND_LED 14   // Index of the Scroll Lock indicator LED (14 is the Scroll Lock key).
-#define OS_MODE_IND_LED 77     // Index of the OS mode indicator LED (77 is Win key).
-#define OS_MODE_IND_TIME_OUT 3 // 3 second timeout for the OS mode indicator LED.
+#include "config.h"
 
 extern rgb_config_t rgb_matrix_config;
 
 bool rgb_enabled_flag;                  // Current LED state flag. If false then LED is off.
 bool rgb_time_out_enable;               // Idle LED toggle enable. If false then LED will not turn off after idle timeout.
-bool rgb_time_out_user_value;           // This holds the toggle value set by user with ROUT_TG. It's necessary as RGB_TOG changes timeout enable.
 uint16_t rgb_time_out_seconds;          // Idle LED timeout value, in seconds not milliseconds
 led_flags_t rgb_time_out_saved_flag;    // Store LED flag before timeout so it can be restored when LED is turned on again.
+
 uint8_t os_mode;                        // Stores the current OS mode.
 bool os_mode_led_flag;                  // Current OS indicator LED state flag. If false, then the LED is off.
-
-enum tapdance_keycodes {
-    TD_ALT_SL = 0, // Tap dance key to switch to Spanish layer
-    TD_GRV_NL      // Tap dance key to switch to Numpad layer
-};
 
 enum layout_names {
     _KL=0,       // Keys Layout: The main keyboard layout that has all the characters
@@ -69,6 +48,7 @@ enum ctrl_keycodes {
 
 enum custom_keycodes {
     // The start of this enum should always be equal to end of ctrl_keycodes + 1
+    // Accented letters must all be grouped together and be implemented in accent_table.
     A_ACUTE = MD_BOOT + 1, // A with acute accent
     E_ACUTE,               // E with acute accent
     I_ACUTE,               // I with acute accent
@@ -80,10 +60,34 @@ enum custom_keycodes {
     OS_TOG                 // Toggle OS mode between Windows and Linux
 };
 
+enum tapdance_keycodes {
+    TD_ALT_SL = 0, // Tap dance key to switch to Spanish layer
+    TD_GRV_NL      // Tap dance key to switch to Numpad layer
+};
+
 enum os {
     WINDOWS = 0,
     LINUX
 };
+
+typedef struct {
+    const char *win_norm;    // Windows alt code for lowercase
+    const char *win_shift;   // Windows alt code for uppercase
+    const char *linux_norm;  // Linux unicode for lowercase
+    const char *linux_shift; // Linux unicode for uppercase
+} accent_entry_t;
+
+static const accent_entry_t accent_table[] = {
+    // Must be in the same order as in custom_keycodes.
+    {"0225", "0193", "00E1", "00C1" }, // A_ACUTE
+    {"0233", "0201", "00E9", "00C9" }, // E_ACUTE
+    {"0237", "0205", "00ED", "00CD" }, // I_ACUTE
+    {"0243", "0211", "00F3", "00D3" }, // O_ACUTE
+    {"0250", "0218", "00FA", "00DA" }, // U_ACUTE
+    {"0241", "0209", "00F1", "00D1" }, // ENE
+};
+
+#define ACCENT_OFFSET A_ACUTE
 
 static uint16_t idle_timer;             // Idle LED timeout timer
 static uint16_t idle_second_counter;    // Idle LED seconds counter, counts seconds not milliseconds
@@ -135,33 +139,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     [_KL] = {
-        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         ______, ______, ______,
-        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
-        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
-        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
-        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,                         ______,
-        ______, ______, ______,                 ______,                         ______, ______, ______, ______,         ______, ______, ______,
+        ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,         ______, ______, ______,
+        ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______, ______, ______, ______, ______,
+        ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______, ______, ______, ______, ______,
+        ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,
+        ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,                           ______,
+        ______,   ______,   ______,                       ______,                                 ______,   ______,   ______,   ______,         ______, ______, ______,
         /* Boarder; starts bottom right and moves clockwise */
-        COPPER, COPPER, COPPER, COPPER, COPPER, COPPER, COPPER, COPPER, COPPER, COPPER, COPPER, COPPER, COPPER,
-        COPPER, COPPER, COPPER,
-        COPPER, COPPER, COPPER, COPPER, COPPER, COPPER, COPPER, COPPER, COPPER, COPPER, COPPER, COPPER, COPPER,
-        COPPER, COPPER, COPPER
+        EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED,
+        EDGE_LED, EDGE_LED, EDGE_LED,
+        EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED, EDGE_LED,
+        EDGE_LED, EDGE_LED, EDGE_LED
     },
     [_FL] = {
-        ______, ______, ______, ______, ______, ______,   ______,   ______,   ______,   ______, ______, ______, ______,         ______, ______, ______,
-        ______, ______, ______, ______, ______, ______,   ______,   ______,   ______,   ______, ______, ______, ______, ______, ______, ______, ______,
-        ______, ______, ______, ______, ______, ______,   ______,   CPPR_BRT, CPPR_BRT, ______, ______, ______, ______, ______, ______, ______, ______,
-        ______, ______, ______, ______, ______, ______,   ______,   ______,   ______,   ______, ______, ______, ______,
-        ______, ______, ______, ______, ______, CPPR_BRT, CPPR_BRT, ______,   ______,   ______, ______, ______,                         ______,
-        ______, ______, ______,                 ______,                                 ______, ______, ______, ______,         ______, ______, ______
+        ______, ______, ______, ______, ______, ______,  ______,  ______,  ______,  ______, ______, ______, ______,         ______, ______, ______,
+        ______, ______, ______, ______, ______, ______,  ______,  ______,  ______,  ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, ______,  ______,  KEY_LED, KEY_LED, ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, ______,  ______,  ______,  ______,  ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, KEY_LED, KEY_LED, ______,  ______,  ______, ______, ______,                         ______,
+        ______, ______, ______,                 ______,                             ______, ______, ______, ______,         ______, ______, ______
     },
     [_NL] = {
-        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,             CPPR_BRT, CPPR_BRT, CPPR_BRT,
-        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,   ______,   CPPR_BRT, CPPR_BRT, CPPR_BRT,
-        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,   CPPR_BRT, CPPR_BRT, CPPR_BRT, CPPR_BRT,
-        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, CPPR_BRT,
-        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,                               ______,
-        ______, ______, ______,                 ______,                         ______, ______, ______, ______,             ______,   ______,   ______
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,           KEY_LED, KEY_LED, KEY_LED,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,  ______,  KEY_LED, KEY_LED, KEY_LED,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,  KEY_LED, KEY_LED, KEY_LED, KEY_LED,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, KEY_LED,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,                            ______,
+        ______, ______, ______,                 ______,                         ______, ______, ______, ______,           ______,  ______,  ______
     },
     [_SL] = {
         ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,         ______, ______, ______,
@@ -169,7 +173,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
         ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
         ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,                         ______,
-        ______, ______, CYAN,                   ______,                         ______, ______, ______, ______,         ______, ______, ______
+        ______, ______, SP_IND,                 ______,                         ______, ______, ______, ______,         ______, ______, ______
     }
 };
 
@@ -190,9 +194,8 @@ void keyboard_post_init_user(void) {
     rgb_matrix_enable();
 }
 
-/* Runs constantly in the background, in a loop. */
-void matrix_scan_user(void) {
-    if(rgb_time_out_enable && rgb_enabled_flag) {
+void handle_rgb_timeout(void) {
+    if (rgb_time_out_enable && rgb_enabled_flag) {
         // If the key event counter is not zero then some key was pressed down but not released, thus reset the timeout counter.
         if (key_event_counter) {
             idle_second_counter = 0;
@@ -209,7 +212,9 @@ void matrix_scan_user(void) {
             idle_second_counter = 0;
         }
     }
+}
 
+void handle_os_mode_led_timeout(void) {
     if(os_mode_led_flag) {
         // Update the second counter after each second.
         if (timer_elapsed(os_ind_led_timer) > MILLISECONDS_IN_SECOND) {
@@ -223,67 +228,27 @@ void matrix_scan_user(void) {
             os_ind_led_second_counter = 0;
         }
     }
+}
+
+/* Runs constantly in the background, in a loop. */
+void matrix_scan_user(void) {
+    handle_rgb_timeout();
+    handle_os_mode_led_timeout();
 };
 
-/* Executes the given alt code (Windows only). */
-void send_alt_code(char code[]) {
-    uint8_t mod_state = get_mods(); // Gets the current mods.
-    unregister_mods(mod_state);     // Turns all active mods off.
+/* Sends the given accented letter. */
+void send_accent(uint16_t keycode) {
+    uint16_t index = keycode - ACCENT_OFFSET;
+    if (index >= ARRAY_SIZE(accent_table)) return; // out of range
 
-    SEND_STRING(SS_DOWN(X_LALT));
-    for(int i = 0; code[i] != '\0';  i++) {
-        switch(code[i]) {
-            case '1': SEND_STRING(SS_TAP(X_KP_1)); break;
-            case '2': SEND_STRING(SS_TAP(X_KP_2)); break;
-            case '3': SEND_STRING(SS_TAP(X_KP_3)); break;
-            case '4': SEND_STRING(SS_TAP(X_KP_4)); break;
-            case '5': SEND_STRING(SS_TAP(X_KP_5)); break;
-            case '6': SEND_STRING(SS_TAP(X_KP_6)); break;
-            case '7': SEND_STRING(SS_TAP(X_KP_7)); break;
-            case '8': SEND_STRING(SS_TAP(X_KP_8)); break;
-            case '9': SEND_STRING(SS_TAP(X_KP_9)); break;
-            default:  SEND_STRING(SS_TAP(X_KP_0)); break;
-        }
+    const accent_entry_t *entry = &accent_table[index];
+
+    if (os_mode == WINDOWS) {
+        send_alt_code(MODS_SHIFT ? entry->win_shift : entry->win_norm);
+    } else {
+        send_unicode(MODS_SHIFT ? entry->linux_shift : entry->linux_norm);
     }
-    SEND_STRING(SS_UP(X_LALT));
-
-    register_mods(mod_state); // Restores the mods to their original state.
 }
-
-/* Inserts the given Unicode character via Unicode-entry mode (Linux only). */
-void send_unicode(const char *code) {
-    uint8_t mod_state = get_mods();     // Gets the current mods.
-    unregister_mods(mod_state);         // Turns all active mods off.
-
-    SEND_STRING(SS_LCTL(SS_LSFT("u"))); // Ctrl + Shift  + U,
-    SEND_STRING(code);                  // type in the code,
-    SEND_STRING(SS_TAP(X_ENT));         // and press enter.
-
-    register_mods(mod_state);           // Restores the mods to their original state.
-}
-
-/* Enters the given command into the Windows Run dialog (Windows only). */
-void windows_run(const char *command) {
-    SEND_STRING(SS_LGUI("r") SS_DELAY(50)); // Open the run dialog,
-    SEND_STRING(command);                   // type in the command,
-    SEND_STRING(SS_TAP(X_ENT));             // and press enter.
-}
-
-/* Enters the given command into the Linux Run dialog (Linux only). */
-void linux_run(const char *command) {
-    uint8_t mod_state = get_mods();                  // Gets the current mods.
-    unregister_mods(mod_state);                      // Turns all active mods off.
-
-    SEND_STRING(SS_LALT(SS_TAP(X_F2)) SS_DELAY(50)); // Open the run dialog,
-    SEND_STRING(command);                            // type in the command,
-    SEND_STRING(SS_TAP(X_ENT));                      // and press enter.
-
-    register_mods(mod_state);                        // Restores the mods to their original state.
-}
-
-#define MODS_SHIFT  (get_mods() & MOD_MASK_SHIFT)
-#define MODS_CTRL   (get_mods() & MOD_MASK_CTRL)
-#define MODS_ALT    (get_mods() & MOD_MASK_ALT)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
@@ -333,64 +298,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
         /* Spanish Letters and Punctuation */
-        case A_ACUTE: // A with acute accent
+        case A_ACUTE ... ENE: // Any of the Spanish accented letters
             if (record->event.pressed) {
-                if (os_mode == WINDOWS) {
-                    send_alt_code(MODS_SHIFT ? "0193" : "0225");
-                } else {
-                    send_unicode(MODS_SHIFT ? "00C1" : "00E1");
-                }
-                layer_off(3);
-            }
-            return false;
-        case E_ACUTE: // E with acute accent
-            if (record->event.pressed) {
-                if (os_mode == WINDOWS) {
-                    send_alt_code(MODS_SHIFT ? "0201" : "0233");
-                } else {
-                    send_unicode(MODS_SHIFT ? "00C9" : "00E9");
-                }
-                layer_off(3);
-            }
-            return false;
-        case I_ACUTE: // I with acute accent
-            if (record->event.pressed) {
-                if (os_mode == WINDOWS) {
-                    send_alt_code(MODS_SHIFT ? "0205" : "0237");
-                } else {
-                    send_unicode(MODS_SHIFT ? "00CD" : "00ED");
-                }
-                layer_off(3);
-            }
-            return false;
-        case O_ACUTE: // O with acute accent
-            if (record->event.pressed) {
-                if (os_mode == WINDOWS) {
-                    send_alt_code(MODS_SHIFT ? "0211" : "0243");
-                } else {
-                    send_unicode(MODS_SHIFT ? "00D3" : "00F3");
-                }
-                layer_off(3);
-            }
-            return false;
-        case U_ACUTE: // U with acute accent
-            if (record->event.pressed) {
-                if (os_mode == WINDOWS) {
-                    send_alt_code(MODS_SHIFT ? "0218" : "0250");
-                } else {
-                    send_unicode(MODS_SHIFT ? "00DA" : "00FA");
-                }
-                layer_off(3);
-            }
-            return false;
-        case ENE: // N with tilde accent
-            if (record->event.pressed) {
-                if (os_mode == WINDOWS) {
-                    send_alt_code(MODS_SHIFT ? "0209" : "0241");
-                } else {
-                    send_unicode(MODS_SHIFT ? "00D1" : "00F1");
-                }
-                layer_off(3);
+                send_accent(keycode);
+                layer_off(_SL);
             }
             return false;
         case INV_EXC:
@@ -401,7 +312,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     } else {
                         send_unicode("00A1");
                     }
-                    layer_off(3);
+                    layer_off(_SL);
                 } else {
                     SEND_STRING("1");
                 }
@@ -415,7 +326,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     } else {
                         send_unicode("00BF");
                     }
-                    layer_off(3);
+                    layer_off(_SL);
                 } else {
                     SEND_STRING("/");
                 }
@@ -468,48 +379,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 /* Runs everytime a layer change happens */
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-        /* When turning on the numpad, make sure NUM LOCK is on */
-        case _NL:
-            bool num_lock = host_keyboard_led_state().num_lock;
-            if (!num_lock) { // If NUM LOCK isn't on, turn it on.
-                register_code(KC_NUM);
-                unregister_code(KC_NUM);
-            }
-            break;
-        /* No special logic for the other layers */
-        default:
-            break;
+    /* When turning on the numpad, make sure NUM LOCK is on */
+    if (get_highest_layer(state) == _NL && !host_keyboard_led_state().num_lock) {
+        tap_code(KC_NUM);
     }
-  return state;
+    /* No special logic for the other layers */
+    return state;
+}
+
+/* Helper: set an LED from HSV with brightness scaling */
+static void set_led_hsv(uint8_t index, HSV hsv) {
+    RGB rgb = hsv_to_rgb(hsv);
+    float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+    rgb_matrix_set_color(index, f * rgb.r, f * rgb.g, f * rgb.b);
 }
 
 void set_layer_color(int layer) {
     for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         /* Special Indicator Logic */
         if (i == OS_MODE_IND_LED && (os_mode_led_flag || IS_LAYER_ON(_FL))) { // OS indicator LED
-            HSV win_hsv = WIN_IND;
-            HSV lnx_hsv = LNX_IND;
-
-            RGB rgb = hsv_to_rgb(os_mode == WINDOWS ? win_hsv : lnx_hsv);
-            float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-            rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
+            set_led_hsv(i, os_mode == WINDOWS ? (HSV)WIN_IND : (HSV)LNX_IND);
             continue;
         }
         if (i == CAPS_LOCK_IND_LED && host_keyboard_led_state().caps_lock) { // Caps Lock indicator LED
-            HSV hsv = CAPS_IND;
-
-            RGB rgb = hsv_to_rgb(hsv);
-            float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-            rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
+            set_led_hsv(i, (HSV)CAPS_IND);
             continue;
         }
         if (i == SCRL_LOCK_IND_LED && host_keyboard_led_state().scroll_lock) { // Scroll Lock indicator LED
-            HSV hsv = SCRL_IND;
-
-            RGB rgb = hsv_to_rgb(hsv);
-            float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-            rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
+            set_led_hsv(i, (HSV)SCRL_IND);
             continue;
         }
         /* Normal Logic */
@@ -519,9 +416,7 @@ void set_layer_color(int layer) {
             .v = pgm_read_byte(&ledmap[layer][i][2]),
         };
         if (hsv.h || hsv.s || hsv.v) {
-            RGB rgb = hsv_to_rgb(hsv);
-            float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-            rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
+            set_led_hsv(i, hsv);
         } else {
             bool is_undefined = true;
 
@@ -536,9 +431,7 @@ void set_layer_color(int layer) {
                         .v = pgm_read_byte(&ledmap[lower_layer_j][i][2]),
                     };
                     if (lower_hsv.h || lower_hsv.s || lower_hsv.v) {
-                        RGB rgb = hsv_to_rgb(lower_hsv);
-                        float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-                        rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
+                        set_led_hsv(i, lower_hsv);
                         is_undefined = false;
                         break;
                     }
@@ -546,7 +439,7 @@ void set_layer_color(int layer) {
             }
 
             if (is_undefined) {
-                // If the values are all false then it's a transparent key and deactivate LED at this layer
+                // If the values are all false then it's a transparent key and the LED should be deactivated.
                 rgb_matrix_set_color(i, 0, 0, 0);
             }
         }
