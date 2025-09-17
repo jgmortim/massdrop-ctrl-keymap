@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.3.0] - 2025-09-17
+
+### Added
+
+- Windows shortcut to toggle the audio output device.
+  - <kbd>Win</kbd>+<kbd>a</kbd> triggers the following macro: <kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>v</kbd>, 
+    <kbd>Down</kbd>×`n`, <kbd>Enter</kbd>, <kbd>Esc</kbd>.
+
+### Changed
+
+- Overhaul README section on custom shortcuts.
+
 ## [4.2.2] - 2025-09-17
 
 ### Fixed
@@ -199,6 +211,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - This CHANGELOG file
 - gitignore
 
+[4.3.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.2.2...v4.3.0
 [4.2.2]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.2.1...v4.2.2
 [4.2.1]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.2.0...v4.2.1
 [4.2.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.1.0...v4.2.0
