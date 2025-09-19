@@ -117,10 +117,14 @@ list. In particular, it works by opening the sound output page of quick settings
 pressing <kbd>Enter</kbd> to select the device, and finally pressing <kbd>Esc</kbd> to close the menu. This behavior
 overrides the default <kbd>Win</kbd>+<kbd>a</kbd> shortcut which opens Action Center.
 
+The selected device is indicated for one second after switching devices. If the first device is selected, 
+the <kbd>1</kbd> key will be backlit. If the second device is selected, the <kbd>2</kbd> key will be backlit. And so
+on. The keys are backlit in copper ![#DC614D](https://placehold.co/10x10/DC614D/DC614D).
+
 This feature is limited in that the keyboard has no way of knowing which audio device is selected at boot, but it
 assumes the first device is selected. The first time this shortcut is used, it will toggle to the second device. At
-which point, the Windows and the keyboard will be in sync. If you manually change the output device, they will become
-out of sync again.
+which point, Windows and the keyboard will be in sync. If you manually change the output device, they will become out
+of sync again.
 
 To function correctly, the `NUMBER_OF_AUDIO_OUTPUT_DEVICES` needs to be set appropriately in `config.h`. This field is
 not dynamic. If you add or remove an audio output device, you'll need to update `config.h` and reflash the keyboard.
