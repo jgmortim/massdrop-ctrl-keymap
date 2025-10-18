@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add audio output device LED indicators
-  - A number key (<kbd>1</kbd>–<kbd>9</kbd>) will be backlit corresponding with the selected device for one second following a change
+  - A number key (<kbd>1</kbd>–<kbd>9</kbd>) will be backlit corresponding with the selected device for one second
+    following a change
 
 ### Fixed
 
