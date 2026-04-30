@@ -5,12 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.4.1] - 2026-04-30
+
+### Fixed
+
+- Over time, Windows has gotten slower and the 50ms delay between <kbd>Win</kbd>+<kbd>r</kbd> and entering a command
+  is no longer long enough. Increase delay from 50 ms to 100 ms.
+- Increase delay on audio output toggle from 200 ms to 250 ms for same reason
+
 ## [4.4.0] - 2025-09-19
 
 ### Added
 
 - Add audio output device LED indicators
-  - A number key (<kbd>1</kbd>–<kbd>9</kbd>) will be backlit corresponding with the selected device for one second following a change
+  - A number key (<kbd>1</kbd>–<kbd>9</kbd>) will be backlit corresponding with the selected device for one second
+    following a change
 
 ### Fixed
 
@@ -223,6 +232,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - This CHANGELOG file
 - gitignore
 
+[4.4.1]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.4.0...v4.4.1
 [4.4.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.3.0...v4.4.0
 [4.3.0]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.2.2...v4.3.0
 [4.2.2]: https://github.com/jgmortim/massdrop-ctrl-keymap/compare/v4.2.1...v4.2.2

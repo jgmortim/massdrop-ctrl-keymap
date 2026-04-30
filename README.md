@@ -249,7 +249,7 @@ power to all connected devices.
 
 * The images in this README were created using [Keyboard Layout Editor v0.15](https://www.keyboard-layout-editor.com/). 
   The specific JSON needed to recreate these images can be found under `/resources/json/`.
-* Each time this README mentions the color of an LED, a colored square is displayed. These image ares sourced from
+* Each time this README mentions the color of an LED, a colored square is displayed. These images are sourced from
   [Placehold](https://placehold.co).
   * Note: The color codes used in this README are different from the codes actually driving the LEDs. This is because
     the LEDs on the keyboard are not very color accurate. The color codes in this README are approximations of the
